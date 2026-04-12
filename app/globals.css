@@ -1,26 +1,219 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --color-background: #f4f7f7;
+  --color-surface: #edf5f5;
+  --color-card: #ffffff;
+  --color-accent: #2ba3ac;
+  --color-accent-strong: #1f8b93;
+  --color-accent-soft: #d9eef0;
+  --color-heading: #1f2a2e;
+  --color-text: #314247;
+  --color-text-muted: #4a5a5e;
+  --color-border: #d7e1e2;
+  --color-hairline: rgba(31, 42, 46, 0.08);
+  --shadow-soft: 0 26px 60px -42px rgba(22, 37, 40, 0.26);
+  --shadow-panel: 0 34px 80px -50px rgba(18, 30, 33, 0.22);
+  --focus-ring: #0f6e75;
+  --focus-ring-offset: #ffffff;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background: var(--color-background);
+  --color-foreground: var(--color-text);
+  --font-sans: var(--font-body);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  background:
+    radial-gradient(circle at top left, rgba(43, 163, 172, 0.05), transparent 22%),
+    linear-gradient(180deg, #fbfdfd 0%, #f4f7f7 100%);
+  color: var(--color-text);
+  font-family: var(--font-body), sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  font-family: var(--font-display), sans-serif;
+  color: inherit;
+}
+
+p {
+  margin: 0;
+}
+
+.font-display {
+  font-family: var(--font-display), sans-serif;
+}
+
+.shell {
+  margin-inline: auto;
+  max-width: 80rem;
+  padding-inline: 1rem;
+}
+
+@media (min-width: 640px) {
+  .shell {
+    padding-inline: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .shell {
+    padding-inline: 2rem;
+  }
+}
+
+.surface-card {
+  border: 1px solid var(--color-border);
+  background: var(--color-card);
+  box-shadow: var(--shadow-soft);
+}
+
+.surface-card-strong {
+  border: 1px solid var(--color-border);
+  background: linear-gradient(180deg, #ffffff 0%, #fbfdfd 100%);
+  box-shadow: var(--shadow-panel);
+}
+
+.focus-ring:focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 3px;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+summary:focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 3px var(--focus-ring-offset);
+}
+
+.prose-list {
+  margin: 0;
+  padding-left: 1.1rem;
+}
+
+.prose-list li + li {
+  margin-top: 0.55rem;
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 0.35rem 0.7rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.eyebrow::before {
+  content: "";
+  display: block;
+  width: 2.4rem;
+  height: 1px;
+  background: color-mix(in srgb, var(--color-accent) 50%, white);
+}
+
+.soft-grid {
+  position: relative;
+}
+
+.soft-grid::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.55) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.55) 1px, transparent 1px);
+  background-size: 32px 32px;
+  opacity: 0.28;
+  mask-image: radial-gradient(circle at center, black 45%, transparent 90%);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: 1rem;
+  z-index: 100;
+  transform: translateY(-220%);
+  border-radius: 999px;
+  background: var(--color-heading);
+  color: #ffffff;
+  padding: 0.8rem 1.1rem;
+  font-weight: 700;
+  transition: transform 0.2s ease;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
