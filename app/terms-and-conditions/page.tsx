@@ -1,5 +1,4 @@
 import { PolicyPageContent } from "@/components/policy-page-content";
-import { getPolicyPage } from "@/lib/content";
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata = buildMetadata({
@@ -8,15 +7,108 @@ export const metadata = buildMetadata({
   path: "/terms-and-conditions",
 });
 
-export default async function TermsPage() {
-  const page = await getPolicyPage("terms-and-conditions");
+export default function TermsPage() {
+  const content = [
+    "Effective Date: 2026-04-12",
+    "h2:1. Introduction",
+    "These Terms and Conditions govern your use of the Revive Holistic Therapies website and services.",
+    "By booking a treatment or using this website, you agree to these Terms.",
+    "h2:2. About Us",
+    "Business Name: Revive Holistic Therapies",
+    "Location: Cannock, Staffordshire, United Kingdom",
+    "We provide massage, facial and holistic therapy treatments.",
+    "h2:3. Booking Appointments",
+    "h3:3.1 Booking",
+    "Appointments can be made via:",
+    "li:Our online booking system",
+    "li:Phone",
+    "li:Email",
+    "All bookings are subject to availability.",
+    "h3:3.2 Accuracy of Information",
+    "You agree to provide accurate and complete information when booking.",
+    "h2:4. Payments",
+    "h3:4.1 Payment Methods",
+    "Payments may be made via:",
+    "li:Card payments",
+    "li:Online payment systems",
+    "li:In-person payment",
+    "We may use secure providers such as:",
+    "li:Stripe",
+    "li:GoCardless",
+    "h3:4.2 Deposits",
+    "We may require a deposit to secure your booking.",
+    "Deposit terms will be clearly stated during booking.",
+    "h3:4.3 Pricing",
+    "All prices are listed in GBP (£) and may be subject to change.",
+    "h2:5. Cancellation and Rescheduling",
+    "h3:5.1 Notice Period",
+    "We request at least 24 hours' notice for cancellations or rescheduling.",
+    "h3:5.2 Late Cancellations",
+    "Late cancellations may result in:",
+    "li:Loss of deposit",
+    "li:Full or partial charge",
+    "h3:5.3 No-Shows",
+    "Failure to attend your appointment may result in:",
+    "li:Full charge of the treatment",
+    "li:Refusal of future bookings",
+    "h2:6. Health and Medical Conditions",
+    "h3:6.1 Responsibility",
+    "You must inform us of any relevant health conditions, injuries or medical treatments before your appointment.",
+    "h3:6.2 Suitability",
+    "Some treatments may not be suitable depending on your condition.",
+    "We reserve the right to refuse or adapt treatment if necessary for your safety.",
+    "h3:6.3 Pregnancy",
+    "Pregnancy treatments are only provided after the first 12 weeks unless otherwise agreed.",
+    "h2:7. Treatment Expectations",
+    "h3:7.1 No Medical Claims",
+    "Our treatments are designed to support relaxation and wellbeing.",
+    "They are not a substitute for medical advice, diagnosis or treatment.",
+    "h3:7.2 Results",
+    "Individual results may vary.",
+    "h2:8. Conduct",
+    "We reserve the right to refuse or terminate a treatment if:",
+    "li:Inappropriate behaviour occurs",
+    "li:There is a risk to staff safety",
+    "li:Terms are not respected",
+    "No refunds will be given in such cases.",
+    "h2:9. Late Arrival",
+    "If you arrive late:",
+    "li:Your session may be shortened",
+    "li:Full payment will still apply",
+    "h2:10. Gift Vouchers (if applicable)",
+    "li:Vouchers are non-refundable",
+    "li:Must be used within the stated validity period",
+    "li:Cannot be exchanged for cash",
+    "h2:11. Website Use",
+    "h3:11.1 Content",
+    "All website content is owned by Revive Holistic Therapies and must not be copied or reproduced without permission.",
+    "h3:11.2 Accuracy",
+    "We aim to keep all information accurate, but we do not guarantee that all content is error-free.",
+    "h2:12. Liability",
+    "We are not liable for:",
+    "li:Indirect or consequential losses",
+    "li:Issues arising from incorrect information provided by you",
+    "Nothing in these terms limits liability where it is unlawful to do so.",
+    "h2:13. Privacy",
+    "Your personal data is handled in accordance with our Privacy Policy.",
+    "h2:14. Changes to Terms",
+    "We may update these Terms and Conditions at any time.",
+    "Changes will be posted on this page.",
+    "h2:15. Governing Law",
+    "These Terms are governed by the laws of England and Wales.",
+    "h2:16. Contact",
+    "If you have any questions regarding these Terms, please contact:",
+    "Revive Holistic Therapies",
+    "Cannock, Staffordshire",
+    "Before going live, you should confirm your cancellation window, confirm deposit rules, add your contact email, and include your business address if needed.",
+  ];
 
   return (
     <PolicyPageContent
       slug="terms-and-conditions"
-      title={page?.title ?? "Terms & Conditions"}
-      description={page?.description ?? "Read the terms and conditions for Revive Holistic Therapies."}
-      content={page?.content ?? []}
+      title="Terms and Conditions"
+      description="Review the booking, payment, cancellation and website terms for Revive Holistic Therapies."
+      content={content}
     />
   );
 }

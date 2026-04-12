@@ -35,7 +35,7 @@ const massageTreatments = [
     title: "Indian Head Massage",
     body:
       "A treatment focused on the scalp, head, neck and shoulders, helping to ease built-up tension and promote a sense of calm. This is a great option for clients who carry stress in the upper body or simply want a deeply relaxing treatment.",
-    href: "/treatments/indian-head-massage",
+    href: "/massage-treatments/indian-head-massage",
   },
   {
     title: "Heat Therapy Massage",
@@ -68,7 +68,7 @@ const heatTherapyOptions = [
     title: "Lomi Lomi Massage",
     body:
       "Inspired by traditional Hawaiian massage, Lomi Lomi uses flowing movements across the body to create a rhythmic, deeply nurturing treatment experience that encourages relaxation and emotional release.",
-    href: "/treatments/lomi-lomi-massage",
+    href: "/massage-treatments/lomi-lomi-massage",
   },
 ];
 
@@ -225,12 +225,12 @@ export default function MassageTreatmentsPage() {
           { href: "/massage-treatments/deep-tissue-massage", label: "Deep Tissue Massage" },
           { href: "/massage-treatments/remedial-massage", label: "Remedial Massage" },
           { href: "/massage-treatments/aromatherapy-massage", label: "Aromatherapy Massage" },
-          { href: "/treatments/indian-head-massage", label: "Indian Head Massage" },
+          { href: "/massage-treatments/indian-head-massage", label: "Indian Head Massage" },
           { href: "/massage-treatments/heat-therapy-massage", label: "Heat Therapy Massage" },
           { href: "/massage-treatments/aqua-massage", label: "Aqua Massage" },
           { href: "/massage-treatments/hot-stone-massage", label: "Hot Stone Massage" },
           { href: "/massage-treatments/warm-bamboo-massage", label: "Warm Bamboo Massage" },
-          { href: "/treatments/lomi-lomi-massage", label: "Lomi Lomi Massage" },
+          { href: "/massage-treatments/lomi-lomi-massage", label: "Lomi Lomi Massage" },
           { href: "/price-list", label: "Price List" },
           { href: "/contact", label: "Contact" },
         ].map((item) => (

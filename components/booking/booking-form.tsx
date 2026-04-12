@@ -106,7 +106,8 @@ export function BookingForm({ services, paymentSettings, bookingSettings }: Book
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const formData = new FormData(event.currentTarget);
+    const form = event.currentTarget;
+    const formData = new FormData(form);
 
     if (!selectedSlot) {
       setMessage("Please select an available time slot.");
@@ -157,7 +158,7 @@ export function BookingForm({ services, paymentSettings, bookingSettings }: Book
       bookingDate: date,
       paymentMode: payload.paymentMode,
     });
-    event.currentTarget.reset();
+    form.reset();
     setSubmitting(false);
     setSelectedSlot(null);
   }

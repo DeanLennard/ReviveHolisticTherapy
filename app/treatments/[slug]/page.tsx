@@ -1,4 +1,5 @@
 import { Breadcrumbs } from "@/components/breadcrumbs";
+import { FaqAccordion } from "@/components/faq-accordion";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -99,14 +100,7 @@ export default async function TreatmentDetailPage(props: TreatmentPageProps) {
           </ul>
 
           <h3 className="mt-10 font-display text-2xl font-semibold">Treatment FAQs</h3>
-          <div className="mt-5 space-y-4">
-            {service.faqs.map((faq) => (
-              <details key={faq.question} className="rounded-[1.25rem] border border-[color:var(--color-border)] px-5 py-4">
-                <summary className="cursor-pointer font-semibold text-[color:var(--color-heading)]">{faq.question}</summary>
-                <p className="mt-3 text-[color:var(--color-text-muted)]">{faq.answer}</p>
-              </details>
-            ))}
-          </div>
+          <FaqAccordion items={service.faqs} className="mt-5 space-y-4" />
         </article>
 
         <aside className="space-y-6">

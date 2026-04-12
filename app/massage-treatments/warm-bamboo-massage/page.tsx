@@ -216,7 +216,7 @@ export default function WarmBambooMassagePage() {
               { href: "/massage-treatments/heat-therapy-massage", label: "Heat Therapy Massage" },
               { href: "/massage-treatments/hot-stone-massage", label: "Hot Stone Massage" },
               { href: "/massage-treatments/aqua-massage", label: "Aqua Massage" },
-              { href: "/treatments/lomi-lomi-massage", label: "Lomi Lomi Massage" },
+              { href: "/massage-treatments/lomi-lomi-massage", label: "Lomi Lomi Massage" },
               { href: "/massage-treatments/deep-tissue-massage", label: "Deep Tissue Massage" },
               { href: "/massage-treatments/aromatherapy-massage", label: "Aromatherapy Massage" },
               { href: "/price-list", label: "Price List" },

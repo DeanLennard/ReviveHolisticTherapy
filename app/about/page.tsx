@@ -47,7 +47,7 @@ export default async function AboutPage() {
       <PageHero
         eyebrow="About Revive"
         title="Professional Massage and Holistic Therapy in Cannock"
-        description="Revive Holistic Therapies is dedicated to providing personalised treatments that support your wellbeing. Based in Cannock, we offer a range of massage, holistic and facial treatments designed to help you relax, recover and feel more balanced. Our approach is simple — every treatment is tailored to you."
+        description="Revive Holistic Therapies is dedicated to providing personalised treatments that support your wellbeing. Based in Cannock, we offer a range of massage, holistic and facial treatments designed to help you relax, recover and feel more balanced. Our approach is simple: every treatment is tailored to you."
       />
 
       <section className="mt-16 grid gap-8 lg:grid-cols-[1.05fr_0.95fr]">

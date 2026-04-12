@@ -1,0 +1,283 @@
+import Link from "next/link";
+
+import { Breadcrumbs } from "@/components/breadcrumbs";
+import { PageHero } from "@/components/page-hero";
+import { SchemaScript } from "@/components/schema-script";
+import { SectionHeading } from "@/components/section-heading";
+import { buildMetadata } from "@/lib/seo";
+
+export const metadata = buildMetadata({
+  title: "Oncology Massage Cannock | Gentle Supportive Massage Therapy",
+  description:
+    "Oncology massage in Cannock offering gentle, tailored treatments to support relaxation and comfort during or after cancer treatment.",
+  path: "/womens-wellbeing/oncology-massage",
+});
+
+const suitableFor = [
+  "Currently undergoing cancer treatment",
+  "Recovering after treatment",
+  "Experiencing fatigue or discomfort",
+  "Feeling anxious or overwhelmed",
+  "Looking for a gentle and supportive treatment",
+];
+
+const benefits = [
+  "Improved relaxation",
+  "Reduced stress and anxiety",
+  "Increased sense of comfort",
+  "Support for emotional wellbeing",
+  "Time to rest and feel cared for",
+];
+
+const faqItems = [
+  {
+    question: "Is oncology massage safe?",
+    answer: "Yes, it is specifically adapted to ensure safety and comfort.",
+  },
+  {
+    question: "Do I need to provide medical information?",
+    answer: "We may ask some questions to ensure the treatment is suitable for you.",
+  },
+  {
+    question: "Can I have this treatment during treatment?",
+    answer: "In many cases yes, but it depends on your situation. Please contact us to discuss.",
+  },
+];
+
+export default function OncologyMassagePage() {
+  const schema = [
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      name: "Oncology Massage",
+      description:
+        "Gentle oncology massage in Cannock tailored to support relaxation, comfort and wellbeing during or after cancer treatment.",
+      areaServed: ["Cannock", "Hednesford", "Staffordshire"],
+      provider: {
+        "@type": "HealthAndBeautyBusiness",
+        name: "Revive Holistic Therapies",
+      },
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faqItems.map((faq) => ({
+        "@type": "Question",
+        name: faq.question,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: faq.answer,
+        },
+      })),
+    },
+  ];
+
+  return (
+    <div className="shell py-8 sm:py-10">
+      <SchemaScript data={schema} />
+      <Breadcrumbs
+        items={[
+          { label: "Home", href: "/" },
+          { label: "Women's Wellbeing", href: "/womens-wellbeing" },
+          { label: "Oncology Massage" },
+        ]}
+      />
+
+      <PageHero
+        eyebrow="Oncology Massage"
+        title="Gentle, Supportive Oncology Massage in Cannock"
+        description="Oncology massage is a carefully adapted treatment designed to support relaxation, comfort and wellbeing for those undergoing or recovering from cancer treatment. At Revive Holistic Therapies in Cannock, each session is tailored to your individual needs, providing a calm, safe and supportive environment where you can relax and feel cared for."
+      />
+
+      <section className="mt-10 flex flex-wrap gap-3">
+        <Link href="/contact" className="rounded-full bg-[color:var(--color-accent)] px-5 py-3 font-semibold text-white">
+          Enquire or Book
+        </Link>
+        <Link href="/booking" className="rounded-full border border-[color:var(--color-border)] bg-white px-5 py-3 font-semibold text-[color:var(--color-heading)]">
+          Book Now
+        </Link>
+      </section>
+
+      <section className="mt-24 grid gap-8 lg:grid-cols-[1fr_1fr]">
+        <div className="surface-card-strong rounded-[2.1rem] p-8 lg:p-10">
+          <SectionHeading
+            eyebrow="Safe and adapted"
+            title="A safe and adapted approach"
+            description="Your safety and comfort are always our priority."
+          />
+          <p className="mt-6 text-lg leading-8 text-[color:var(--color-text-muted)]">
+            Oncology massage is specifically adapted to take into account your current health, treatment stage and individual needs.
+          </p>
+          <p className="mt-5 text-lg leading-8 text-[color:var(--color-text-muted)]">
+            We will take time to understand your situation before your appointment, ensuring the treatment is appropriate and tailored to you. Techniques, pressure and positioning are all adjusted to provide a gentle and comfortable experience.
+          </p>
+        </div>
+
+        <div className="surface-card-strong rounded-[2.1rem] p-8 lg:p-10">
+          <SectionHeading
+            eyebrow="What is oncology massage?"
+            title="What is oncology massage?"
+            description="Oncology massage is a specialised form of massage that is adapted for people who are undergoing or recovering from cancer treatment."
+          />
+          <p className="mt-6 text-lg leading-8 text-[color:var(--color-text-muted)]">
+            The focus is on comfort, relaxation and support, rather than deep or intensive techniques.
+          </p>
+          <p className="mt-5 text-lg leading-8 text-[color:var(--color-text-muted)]">
+            The treatment is gentle and carefully tailored to ensure it is suitable for your current condition.
+          </p>
+          <Link href="/contact" className="mt-8 inline-flex rounded-full bg-[color:var(--color-accent)] px-5 py-3 font-semibold text-white">
+            Contact Us
+          </Link>
+        </div>
+      </section>
+
+      <section className="mt-24 grid gap-8 lg:grid-cols-[0.95fr_1.05fr]">
+        <div className="surface-card-strong rounded-[2.1rem] p-8 lg:p-10">
+          <SectionHeading
+            eyebrow="Who is it for?"
+            title="Who is oncology massage suitable for?"
+            description="Oncology massage may be suitable for those:"
+          />
+          <ul className="prose-list mt-6 text-lg leading-8 text-[color:var(--color-text-muted)]">
+            {suitableFor.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+          <p className="mt-6 text-lg leading-8 text-[color:var(--color-text-muted)]">
+            If you are unsure whether this treatment is suitable for you, please get in touch and we will be happy to discuss your needs.
+          </p>
+        </div>
+
+        <div className="surface-card-strong rounded-[2.1rem] p-8 lg:p-10">
+          <SectionHeading
+            eyebrow="Benefits"
+            title="Benefits of oncology massage"
+            description="Oncology massage is designed to support your wellbeing in a gentle and calming way."
+          />
+          <ul className="prose-list mt-6 text-lg leading-8 text-[color:var(--color-text-muted)]">
+            {benefits.map((benefit) => (
+              <li key={benefit}>{benefit}</li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section className="mt-24 grid gap-8 lg:grid-cols-[1fr_1fr]">
+        <div className="surface-card-strong rounded-[2.1rem] p-8 lg:p-10">
+          <SectionHeading
+            eyebrow="Treatment experience"
+            title="What to expect from your treatment"
+            description="Before your treatment begins, we will take time to discuss your health, treatment stage and any concerns you may have."
+          />
+          <p className="mt-6 text-lg leading-8 text-[color:var(--color-text-muted)]">
+            The massage will be gentle, with techniques adapted to suit your comfort. You will be positioned in a way that allows you to fully relax, and adjustments can be made throughout the session.
+          </p>
+          <p className="mt-5 text-lg leading-8 text-[color:var(--color-text-muted)]">
+            The environment is calm, quiet and supportive, allowing you to feel at ease throughout.
+          </p>
+        </div>
+
+        <div className="surface-card-strong rounded-[2.1rem] p-8 lg:p-10">
+          <SectionHeading
+            eyebrow="Duration and pricing"
+            title="Treatment duration and pricing"
+            description="Oncology massage is available in 60 minutes."
+          />
+          <p className="mt-6 text-lg leading-8 text-[color:var(--color-text-muted)]">
+            This allows for a calm and supportive treatment experience.
+          </p>
+          <Link href="/price-list" className="mt-8 inline-flex rounded-full border border-[color:var(--color-border)] bg-white px-5 py-3 font-semibold text-[color:var(--color-heading)]">
+            View Price List
+          </Link>
+        </div>
+      </section>
+
+      <section className="mt-24 grid gap-8 lg:grid-cols-[0.98fr_1.02fr]">
+        <div className="surface-card-strong rounded-[2.1rem] p-8 lg:p-10">
+          <SectionHeading
+            eyebrow="Why choose Revive"
+            title="Why choose Revive Holistic Therapies for oncology massage in Cannock?"
+            description="At Revive Holistic Therapies, we provide a professional, caring and supportive environment where your comfort always comes first."
+          />
+          <p className="mt-6 text-lg leading-8 text-[color:var(--color-text-muted)]">
+            Each treatment is tailored to your needs, ensuring you feel safe, relaxed and supported throughout your experience.
+          </p>
+          <p className="mt-5 text-lg leading-8 text-[color:var(--color-text-muted)]">
+            Clients visit from Cannock, Hednesford and surrounding areas for treatments that prioritise care, understanding and wellbeing.
+          </p>
+        </div>
+
+        <div className="surface-card-strong rounded-[2.1rem] p-8 lg:p-10">
+          <SectionHeading
+            eyebrow="Local search"
+            title="Looking for oncology massage in Cannock or Hednesford?"
+            description="If you are searching for oncology massage in Cannock, Revive Holistic Therapies offers gentle, supportive treatments designed to help you relax and feel more comfortable."
+          />
+          <p className="mt-6 text-lg leading-8 text-[color:var(--color-text-muted)]">
+            We also welcome clients from Hednesford and nearby Staffordshire areas.
+          </p>
+          <div className="mt-8 flex flex-wrap gap-3">
+            {[
+              { href: "/womens-wellbeing", label: "Women's Wellbeing" },
+              { href: "/womens-wellbeing/pregnancy-massage", label: "Pregnancy Massage" },
+              { href: "/womens-wellbeing/peri-menopause-massage", label: "Peri / Menopause Massage" },
+              { href: "/reflexology", label: "Reflexology" },
+              { href: "/holistic-therapies", label: "Holistic Therapies" },
+              { href: "/contact", label: "Contact" },
+              { href: "/booking", label: "Booking" },
+            ].map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="rounded-full border border-[color:var(--color-border)] bg-white px-4 py-2 text-sm font-semibold text-[color:var(--color-heading)] transition hover:border-[color:var(--color-accent)] hover:text-[color:var(--color-accent)]"
+              >
+                {item.label}
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="mt-24 rounded-[2.1rem] bg-[linear-gradient(180deg,#2b4348_0%,#1e3135_100%)] px-8 py-10 text-white shadow-[0_30px_75px_-45px_rgba(15,25,28,0.6)]">
+        <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#e3f4f5]">Supportive care in Cannock</p>
+        <h2 className="mt-5 font-display text-4xl font-semibold leading-[1.08] text-white">We&apos;re here to support you</h2>
+        <p className="mt-6 max-w-3xl text-lg leading-8 text-[#f2fbfc]">
+          If you would like to know more or book a treatment, please get in touch. We are happy to discuss your needs and help you feel comfortable before your appointment.
+        </p>
+        <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+          <Link href="/contact" className="rounded-full bg-white px-6 py-3 text-center font-semibold text-[#162124]">
+            Contact Us
+          </Link>
+          <Link href="/booking" className="rounded-full border border-[#c4e5e7] bg-[#345157] px-6 py-3 text-center font-semibold text-white">
+            Book Now
+          </Link>
+        </div>
+      </section>
+
+      <section className="mt-24">
+        <SectionHeading
+          eyebrow="Frequently asked questions"
+          title="Oncology massage FAQs"
+          description="A few helpful answers before you get in touch."
+        />
+        <div className="mt-8 space-y-4">
+          {faqItems.map((faq) => (
+            <details key={faq.question} className="rounded-[1.25rem] border border-[color:var(--color-border)] bg-white px-5 py-4">
+              <summary className="cursor-pointer font-semibold text-[color:var(--color-heading)]">{faq.question}</summary>
+              <p className="mt-3 text-[color:var(--color-text-muted)]">{faq.answer}</p>
+            </details>
+          ))}
+        </div>
+      </section>
+
+      <div className="fixed inset-x-0 bottom-4 z-40 px-4 sm:hidden">
+        <Link
+          href="/contact"
+          className="block rounded-full bg-[color:var(--color-accent)] px-5 py-4 text-center font-semibold text-white shadow-[0_20px_45px_-25px_rgba(43,163,172,0.85)]"
+        >
+          Enquire or Book
+        </Link>
+      </div>
+    </div>
+  );
+}

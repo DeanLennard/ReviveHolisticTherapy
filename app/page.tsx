@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { FaqAccordion } from "@/components/faq-accordion";
 import { HeroCarousel } from "@/components/hero-carousel";
 import { SchemaScript } from "@/components/schema-script";
 import { SectionHeading } from "@/components/section-heading";
@@ -297,6 +298,17 @@ export default async function HomePage() {
         </div>
       </section>
 
+      {homepageFaqs.length ? (
+        <section className="mt-24">
+          <SectionHeading
+            eyebrow="Frequently asked questions"
+            title="Helpful answers before you book"
+            description="A few common questions to make choosing and booking your treatment feel clearer."
+          />
+          <FaqAccordion items={homepageFaqs} className="mt-8 space-y-4" />
+        </section>
+      ) : null}
+
       <section className="mt-24 grid gap-8 lg:grid-cols-[1.02fr_0.98fr]">
         <div className="surface-card-strong rounded-[2.1rem] p-8 lg:p-10">
           <p className="eyebrow">Visit Revive Holistic Therapies</p>
@@ -315,9 +327,9 @@ export default async function HomePage() {
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[color:var(--color-text-muted)]">Call</p>
               <p className="mt-2 font-semibold text-[color:var(--color-heading)]">{site.phone}</p>
             </a>
-            <a href={`mailto:${site.email}`} className="rounded-[1.4rem] bg-[color:var(--color-surface)] px-5 py-5 transition hover:bg-white">
+            <a href={`mailto:${site.email}`} className="min-w-0 rounded-[1.4rem] bg-[color:var(--color-surface)] px-5 py-5 transition hover:bg-white">
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[color:var(--color-text-muted)]">Email</p>
-              <p className="mt-2 font-semibold text-[color:var(--color-heading)]">{site.email}</p>
+              <p className="mt-2 break-words text-[overflow-wrap:anywhere] font-semibold text-[color:var(--color-heading)]">{site.email}</p>
             </a>
             <Link href="/contact" className="rounded-[1.4rem] bg-[color:var(--color-surface)] px-5 py-5 transition hover:bg-white">
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[color:var(--color-text-muted)]">Find us</p>

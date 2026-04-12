@@ -1,5 +1,4 @@
 import { PolicyPageContent } from "@/components/policy-page-content";
-import { getPolicyPage } from "@/lib/content";
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata = buildMetadata({
@@ -9,14 +8,100 @@ export const metadata = buildMetadata({
 });
 
 export default async function PrivacyPolicyPage() {
-  const page = await getPolicyPage("privacy-policy");
+  const fallbackContent = [
+    "Effective Date: 2026-04-12",
+    "h2:1. Introduction",
+    "At Revive Holistic Therapies, we are committed to protecting your privacy and ensuring your personal data is handled securely and responsibly.",
+    "This Privacy Policy explains how we collect, use and protect your information when you use our website or services.",
+    "We operate in accordance with the UK General Data Protection Regulation (UK GDPR) and the Data Protection Act 2018.",
+    "h2:2. Who We Are",
+    "Business Name: Revive Holistic Therapies",
+    "Location: Cannock, Staffordshire, United Kingdom",
+    "If you have any questions about this policy or your data, please contact us via our contact page.",
+    "h2:3. What Information We Collect",
+    "We may collect and process the following types of personal data:",
+    "h3:a) Information you provide directly",
+    "li:Name",
+    "li:Email address",
+    "li:Phone number",
+    "li:Booking details",
+    "li:Messages submitted via contact forms",
+    "h3:b) Booking and service information",
+    "li:Appointment history",
+    "li:Treatment preferences",
+    "li:Notes relevant to your treatment where applicable and appropriate",
+    "h3:c) Technical and usage data",
+    "When you visit our website, we may collect:",
+    "li:IP address",
+    "li:Browser type",
+    "li:Device type",
+    "li:Pages visited",
+    "li:Time spent on pages",
+    "This data helps us improve our website and services.",
+    "h2:4. How We Use Your Information",
+    "We use your data to:",
+    "li:Manage bookings and appointments",
+    "li:Respond to enquiries",
+    "li:Provide treatments and services",
+    "li:Improve our website and user experience",
+    "li:Comply with legal obligations",
+    "We will never sell your personal data.",
+    "h2:5. Analytics and Tracking",
+    "We may use analytics tools such as Google Analytics and PostHog.",
+    "These tools help us understand how visitors use our website so we can improve functionality and performance.",
+    "These services may collect information such as pages visited, time on site and interactions.",
+    "Where required, we will obtain your consent before using cookies or tracking technologies.",
+    "h2:6. Cookies",
+    "Our website may use cookies to improve user experience, analyse website traffic and support booking functionality.",
+    "You can control or disable cookies through your browser settings.",
+    "A cookie banner will be provided where required.",
+    "h2:7. Payments",
+    "Payments may be processed through secure third-party providers such as Stripe and GoCardless.",
+    "We do not store your full payment details on our servers.",
+    "h2:8. How We Store Your Data",
+    "Your data is stored securely and only accessed when necessary.",
+    "We take appropriate technical and organisational measures to protect your data from:",
+    "li:Unauthorised access",
+    "li:Loss or misuse",
+    "li:Disclosure",
+    "h2:9. How Long We Keep Your Data",
+    "We only retain your personal data for as long as necessary to provide our services, comply with legal obligations and resolve disputes.",
+    "h2:10. Your Rights",
+    "Under UK GDPR, you have the right to:",
+    "li:Access your personal data",
+    "li:Request correction of inaccurate data",
+    "li:Request deletion of your data",
+    "li:Object to processing",
+    "li:Request restriction of processing",
+    "li:Withdraw consent at any time",
+    "To exercise your rights, please contact us.",
+    "h2:11. Third-Party Services",
+    "We may use third-party services to operate our website and business, including booking systems, payment providers and analytics platforms.",
+    "These providers are required to handle your data securely and in compliance with data protection laws.",
+    "h2:12. Data Sharing",
+    "We do not sell or share your personal data with third parties for marketing purposes.",
+    "We may share data only when necessary to:",
+    "li:Process payments",
+    "li:Manage bookings",
+    "li:Comply with legal requirements",
+    "h2:13. Data Security",
+    "We take data protection seriously and implement appropriate safeguards to protect your information.",
+    "However, no system is completely secure, and we cannot guarantee absolute security.",
+    "h2:14. Changes to This Policy",
+    "We may update this Privacy Policy from time to time.",
+    "Any changes will be posted on this page with an updated effective date.",
+    "h2:15. Contact Us",
+    "Revive Holistic Therapies",
+    "Cannock, Staffordshire",
+    "Before going live, please ensure your public contact email, any public phone number, your business address if it is intended to be public, and cookie consent management are fully in place.",
+  ];
 
   return (
     <PolicyPageContent
       slug="privacy-policy"
-      title={page?.title ?? "Privacy Policy"}
-      description={page?.description ?? "Read the privacy policy for Revive Holistic Therapies."}
-      content={page?.content ?? []}
+      title="Privacy Policy"
+      description="Learn how Revive Holistic Therapies collects, uses and protects personal data in line with UK GDPR."
+      content={fallbackContent}
     />
   );
 }

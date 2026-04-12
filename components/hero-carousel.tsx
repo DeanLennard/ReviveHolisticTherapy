@@ -99,9 +99,7 @@ export function HeroCarousel({
 
         <div className="grid gap-4">
           <div className="flex items-center justify-between gap-4">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[color:var(--color-text-muted)]">
-              Slide {index + 1} of {slides.length}
-            </p>
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[color:var(--color-text-muted)]">Featured highlights</p>
             <button
               type="button"
               className="rounded-full border border-[color:var(--color-border)] bg-white px-4 py-2 text-sm font-semibold text-[color:var(--color-heading)]"
@@ -145,11 +143,11 @@ export function HeroCarousel({
                     ? "border-[color:var(--color-accent)] bg-[color:var(--color-accent-soft)]/65"
                     : "border-[color:var(--color-border)] bg-white hover:bg-[color:var(--color-surface)]"
                 }`}
-                aria-label={`Show slide ${slideIndex + 1}: ${slide.eyebrow}`}
-                aria-current={slideIndex === index ? "true" : undefined}
-                onClick={() => setIndex(slideIndex)}
-              >
-                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[color:var(--color-text-muted)]">Slide {slideIndex + 1}</p>
+              aria-label={`Show slide ${slideIndex + 1}: ${slide.eyebrow}`}
+              aria-current={slideIndex === index ? "true" : undefined}
+              onClick={() => setIndex(slideIndex)}
+            >
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[color:var(--color-text-muted)]">Explore</p>
                 <p className="mt-2 font-semibold text-[color:var(--color-heading)]">{slide.eyebrow}</p>
               </button>
             ))}

@@ -102,10 +102,18 @@ export type Customer = {
 export type NavLinkItem = {
   href: string;
   label: string;
+  badge?: string;
+};
+
+export type NavGroup = {
+  title: string;
+  href?: string;
+  links: NavLinkItem[];
 };
 
 export type NavItem = NavLinkItem & {
   children?: NavLinkItem[];
+  groups?: NavGroup[];
 };
 
 export const site = {
@@ -140,12 +148,12 @@ export const site = {
         { href: "/massage-treatments/deep-tissue-massage", label: "Deep Tissue Massage" },
         { href: "/massage-treatments/remedial-massage", label: "Remedial Massage" },
         { href: "/massage-treatments/aromatherapy-massage", label: "Aromatherapy Massage" },
-        { href: "/treatments/indian-head-massage", label: "Indian Head Massage" },
+        { href: "/massage-treatments/indian-head-massage", label: "Indian Head Massage" },
         { href: "/massage-treatments/heat-therapy-massage", label: "Heat Therapy Massage" },
         { href: "/massage-treatments/aqua-massage", label: "Aqua Massage" },
         { href: "/massage-treatments/hot-stone-massage", label: "Hot Stone Massage" },
         { href: "/massage-treatments/warm-bamboo-massage", label: "Warm Bamboo Massage" },
-        { href: "/treatments/lomi-lomi-massage", label: "Lomi Lomi Massage" },
+        { href: "/massage-treatments/lomi-lomi-massage", label: "Lomi Lomi Massage" },
       ],
     },
     { href: "/reflexology", label: "Reflexology" },

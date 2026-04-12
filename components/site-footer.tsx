@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { CookieSettingsButton } from "@/components/cookie-settings-button";
 import { getSiteSettings } from "@/lib/content";
 import { site } from "@/lib/site-data";
 
@@ -64,6 +65,7 @@ export async function SiteFooter() {
                 {item.label}
               </Link>
             ))}
+            <CookieSettingsButton className="text-left transition hover:text-white" />
             {whatsappEnabled ? (
               <a
                 href={`https://wa.me/${whatsappNumber.replace(/\D+/g, "")}`}

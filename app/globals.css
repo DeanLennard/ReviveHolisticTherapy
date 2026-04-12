@@ -120,11 +120,38 @@ summary:focus-visible {
 
 .prose-list {
   margin: 0;
-  padding-left: 1.1rem;
+  list-style: disc !important;
+  list-style-position: outside !important;
+  padding-left: 1.35rem;
+}
+
+.prose-list li {
+  display: list-item !important;
+}
+
+.prose-list li::marker {
+  color: var(--color-accent) !important;
 }
 
 .prose-list li + li {
   margin-top: 0.55rem;
+}
+
+a[class*="bg-white"],
+button[class*="bg-white"] {
+  color: var(--color-heading) !important;
+}
+
+a[class*="bg-[color:var(--color-accent)]"],
+button[class*="bg-[color:var(--color-accent)]"],
+a[class*="bg-[color:var(--color-accent-strong)]"],
+button[class*="bg-[color:var(--color-accent-strong)]"] {
+  color: #ffffff !important;
+}
+
+a[class*="bg-[#345157]"],
+button[class*="bg-[#345157]"] {
+  color: #ffffff !important;
 }
 
 .status-pill {

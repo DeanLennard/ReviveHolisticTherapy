@@ -208,7 +208,7 @@ export default function ReflexologyPage() {
             {[
               { href: "/massage-treatments", label: "Massage Treatments" },
               { href: "/massage-treatments/aromatherapy-massage", label: "Aromatherapy Massage" },
-              { href: "/treatments/indian-head-massage", label: "Indian Head Massage" },
+              { href: "/massage-treatments/indian-head-massage", label: "Indian Head Massage" },
               { href: "/womens-wellbeing", label: "Women\u2019s Wellbeing" },
               { href: "/holistic-therapies", label: "Holistic Therapies" },
               { href: "/price-list", label: "Price List" },

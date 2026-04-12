@@ -61,12 +61,14 @@ export function MediaField({
       <label htmlFor={fieldId} className="text-sm font-medium text-[color:var(--color-heading)]">
         {label}
       </label>
+      <input type="hidden" name={name} value={value} readOnly />
       <input
         id={fieldId}
-        name={name}
+        type="text"
         value={value}
         placeholder={placeholder}
         onChange={(event) => setValue(event.target.value)}
+        autoComplete="off"
         className="rounded-2xl border border-[color:var(--color-border)] bg-white px-3 py-2 text-sm"
       />
       <div className="flex flex-wrap items-center gap-3">

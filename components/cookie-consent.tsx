@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const STORAGE_KEY = "revive_cookie_preferences";
+const OPEN_EVENT = "open-cookie-preferences";
 
 type Preferences = {
   essential: true;
@@ -17,6 +18,15 @@ export function CookieConsent() {
 
     return !window.localStorage.getItem(STORAGE_KEY);
   });
+
+  useEffect(() => {
+    function handleOpenPreferences() {
+      setVisible(true);
+    }
+
+    window.addEventListener(OPEN_EVENT, handleOpenPreferences);
+    return () => window.removeEventListener(OPEN_EVENT, handleOpenPreferences);
+  }, []);
 
   function save(preferences: Preferences) {
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(preferences));

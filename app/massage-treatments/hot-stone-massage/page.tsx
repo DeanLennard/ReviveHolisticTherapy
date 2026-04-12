@@ -223,7 +223,7 @@ export default function HotStoneMassagePage() {
               { href: "/massage-treatments/aromatherapy-massage", label: "Aromatherapy Massage" },
               { href: "/massage-treatments/warm-bamboo-massage", label: "Warm Bamboo Massage" },
               { href: "/massage-treatments/aqua-massage", label: "Aqua Massage" },
-              { href: "/treatments/lomi-lomi-massage", label: "Lomi Lomi Massage" },
+              { href: "/massage-treatments/lomi-lomi-massage", label: "Lomi Lomi Massage" },
               { href: "/price-list", label: "Price List" },
               { href: "/contact", label: "Contact" },
               { href: "/booking", label: "Booking" },

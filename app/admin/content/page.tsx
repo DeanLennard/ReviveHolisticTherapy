@@ -107,13 +107,27 @@ export default async function AdminContentPage() {
                       <label className="text-sm"><input name="isActive" type="checkbox" defaultChecked={slide.isActive} className="mr-2" /> Active</label>
                     </div>
                     <div className="flex flex-wrap gap-2">
-                      <button formAction={moveHeroSlide} type="submit" name="direction" value="up" className="rounded-full border border-[color:var(--color-border)] bg-white px-4 py-2 text-sm font-semibold text-[color:var(--color-heading)]">Up</button>
-                      <button formAction={moveHeroSlide} type="submit" name="direction" value="down" className="rounded-full border border-[color:var(--color-border)] bg-white px-4 py-2 text-sm font-semibold text-[color:var(--color-heading)]">Down</button>
                       <button type="submit" className="rounded-full bg-[color:var(--color-accent)] px-4 py-2 text-sm font-semibold text-white">Save slide</button>
                       <button formAction={deleteContentItem} type="submit" className="rounded-full border border-[color:var(--color-border)] bg-white px-4 py-2 text-sm font-semibold text-[color:var(--color-heading)]">Delete</button>
                     </div>
                   </div>
                 </form>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  <form action={moveHeroSlide}>
+                    <input type="hidden" name="id" value={slide._id?.toHexString()} />
+                    <input type="hidden" name="direction" value="up" />
+                    <button type="submit" className="rounded-full border border-[color:var(--color-border)] bg-white px-4 py-2 text-sm font-semibold text-[color:var(--color-heading)]">
+                      Move up
+                    </button>
+                  </form>
+                  <form action={moveHeroSlide}>
+                    <input type="hidden" name="id" value={slide._id?.toHexString()} />
+                    <input type="hidden" name="direction" value="down" />
+                    <button type="submit" className="rounded-full border border-[color:var(--color-border)] bg-white px-4 py-2 text-sm font-semibold text-[color:var(--color-heading)]">
+                      Move down
+                    </button>
+                  </form>
+                </div>
               </AdminListDetails>
             ))}
           </div>

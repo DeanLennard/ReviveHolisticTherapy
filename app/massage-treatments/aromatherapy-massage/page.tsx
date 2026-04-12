@@ -219,7 +219,7 @@ export default function AromatherapyMassagePage() {
               { href: "/massage-treatments", label: "Massage Overview" },
               { href: "/massage-treatments/deep-tissue-massage", label: "Deep Tissue Massage" },
               { href: "/massage-treatments/remedial-massage", label: "Remedial Massage" },
-              { href: "/treatments/indian-head-massage", label: "Indian Head Massage" },
+              { href: "/massage-treatments/indian-head-massage", label: "Indian Head Massage" },
               { href: "/massage-treatments/heat-therapy-massage", label: "Heat Therapy Massage" },
               { href: "/price-list", label: "Price List" },
               { href: "/contact", label: "Contact" },

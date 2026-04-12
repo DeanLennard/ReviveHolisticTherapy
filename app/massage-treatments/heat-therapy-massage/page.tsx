@@ -58,7 +58,7 @@ const treatmentOptions = [
     description:
       "Lomi Lomi massage uses long, flowing movements across the body to create a rhythmic and immersive treatment experience. While not always heat-based, it fits within this category due to its deeply relaxing and flowing nature.",
     extra: "This treatment encourages both physical relaxation and emotional release.",
-    href: "/treatments/lomi-lomi-massage",
+    href: "/massage-treatments/lomi-lomi-massage",
   },
 ];
 

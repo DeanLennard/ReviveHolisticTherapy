@@ -54,7 +54,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   ];
 
   return (
-    <html lang="en" className={`${bodyFont.variable} ${displayFont.variable}`}>
+    <html lang="en" data-scroll-behavior="smooth" className={`${bodyFont.variable} ${displayFont.variable}`}>
       <body>
         <div className="min-h-screen bg-[color:var(--color-background)] text-[color:var(--color-text)]">
           <SchemaScript data={schema} />

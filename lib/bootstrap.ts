@@ -83,75 +83,31 @@ export async function ensureDatabaseSeeded() {
     payments.createIndex({ receiptNumber: 1 }, { unique: true }),
   ]);
 
-  await services.bulkWrite(
-    buildSeedServices().map((service) => ({
-      updateOne: {
-        filter: { slug: service.slug },
-        update: {
-          $set: service,
-        },
-        upsert: true,
-      },
-    })),
-  );
+  if ((await services.estimatedDocumentCount()) === 0) {
+    await services.insertMany(buildSeedServices());
+  }
 
-  await heroSlides.bulkWrite(
-    buildSeedSlides().map((slide) => ({
-      updateOne: {
-        filter: { displayOrder: slide.displayOrder },
-        update: {
-          $set: slide,
-        },
-        upsert: true,
-      },
-    })),
-  );
+  if ((await heroSlides.estimatedDocumentCount()) === 0) {
+    await heroSlides.insertMany(buildSeedSlides());
+  }
 
-  await testimonials.bulkWrite(
-    buildSeedTestimonials().map((testimonial) => ({
-      updateOne: {
-        filter: {
-          customerName: testimonial.customerName,
-          source: testimonial.source,
-          displayOrder: testimonial.displayOrder,
-        },
-        update: {
-          $set: testimonial,
-        },
-        upsert: true,
-      },
-    })),
-  );
+  if ((await testimonials.estimatedDocumentCount()) === 0) {
+    await testimonials.insertMany(buildSeedTestimonials());
+  }
 
-  await faqs.bulkWrite(
-    buildSeedFaqs().map((faq) => ({
-      updateOne: {
-        filter: { question: faq.question },
-        update: {
-          $set: faq,
-        },
-        upsert: true,
-      },
-    })),
-  );
+  if ((await faqs.estimatedDocumentCount()) === 0) {
+    await faqs.insertMany(buildSeedFaqs());
+  }
 
-  await policyPages.bulkWrite(
-    buildSeedPolicyPages().map((policyPage) => ({
-      updateOne: {
-        filter: { slug: policyPage.slug },
-        update: {
-          $set: policyPage,
-        },
-        upsert: true,
-      },
-    })),
-  );
+  if ((await policyPages.estimatedDocumentCount()) === 0) {
+    await policyPages.insertMany(buildSeedPolicyPages());
+  }
 
   const seededSettings = buildSeedSettings();
   await settings.updateOne(
     { siteName: seededSettings.siteName },
     {
-      $set: seededSettings,
+      $setOnInsert: seededSettings,
     },
     { upsert: true },
   );
@@ -166,22 +122,9 @@ export async function ensureDatabaseSeeded() {
     { upsert: true },
   );
 
-  await availability.bulkWrite(
-    buildSeedAvailability().map((item) => ({
-      updateOne: {
-        filter: {
-          practitionerName: item.practitionerName,
-          dayOfWeek: item.dayOfWeek,
-          startTime: item.startTime,
-          endTime: item.endTime,
-        },
-        update: {
-          $set: item,
-        },
-        upsert: true,
-      },
-    })),
-  );
+  if ((await availability.estimatedDocumentCount()) === 0) {
+    await availability.insertMany(buildSeedAvailability());
+  }
 
   bootstrapped = true;
 }
