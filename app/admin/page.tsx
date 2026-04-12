@@ -62,10 +62,10 @@ export default async function AdminPage() {
             {[
               { href: "/admin/bookings", title: "Bookings", body: "Filter bookings, update statuses, edit appointment details, and add manual bookings." },
               { href: "/admin/services", title: "Services", body: "Edit treatment pricing, SEO fields, payment options, featured images, and publish status." },
-              { href: "/admin/content", title: "Content", body: "Manage hero slides, FAQs, and testimonials in clearer list-based sections." },
+              { href: "/admin/content", title: "Content", body: "Manage hero slides and testimonials in clearer list-based sections." },
               { href: "/admin/payments", title: "Payments", body: "Review payment logs, manual entries, refunds, and reconciliation details." },
               { href: "/admin/customers", title: "Customers", body: "View customer profiles, booking counts, and payment history snapshots." },
-              { href: "/admin/settings", title: "Settings", body: "Update business details, policy content, availability rules, and booking settings." },
+              { href: "/admin/settings", title: "Settings", body: "Update business details, availability rules, payment setup, and booking settings." },
             ].map((item) => (
               <Link
                 key={item.href}

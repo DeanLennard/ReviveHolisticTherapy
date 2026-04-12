@@ -5,23 +5,21 @@ import {
   updateSettings,
   upsertAvailability,
   upsertBlockedDate,
-  upsertPolicyPage,
 } from "@/lib/admin-actions";
-import { getAvailabilityForAdmin, getBlockedDatesForAdmin, getPolicyPagesForAdmin, getSiteSettings } from "@/lib/content";
+import { getAvailabilityForAdmin, getBlockedDatesForAdmin, getSiteSettings } from "@/lib/content";
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata = buildMetadata({
   title: "Admin Settings | Revive Holistic Therapies",
-  description: "Manage business settings, booking rules, availability, blocked dates, and policies.",
+  description: "Manage business settings, booking rules, availability, and blocked dates.",
   path: "/admin/settings",
 });
 
 export default async function AdminSettingsPage() {
-  const [settings, blockedDates, availabilityRules, policyPages] = await Promise.all([
+  const [settings, blockedDates, availabilityRules] = await Promise.all([
     getSiteSettings(),
     getBlockedDatesForAdmin(),
     getAvailabilityForAdmin(),
-    getPolicyPagesForAdmin(),
   ]);
 
   return (
@@ -29,7 +27,7 @@ export default async function AdminSettingsPage() {
       <AdminPageHeader
         eyebrow="Settings"
         title="Business settings now live on their own page"
-        description="Core business details, booking rules, clinic availability, blackout periods, and policy pages have been grouped here so the operational setup is easier to manage."
+        description="Core business details, booking rules, clinic availability, blackout periods, and payment setup have been grouped here so the operational setup is easier to manage."
       />
 
       <AdminPanel title="Business settings" description="Update contact details, payment toggles, booking rules, and editable CTA copy.">
@@ -314,28 +312,6 @@ export default async function AdminSettingsPage() {
           </div>
         </AdminPanel>
       </div>
-
-      <AdminPanel title="Policy pages" description="Edit privacy, cookie, and terms content from one place.">
-        <div className="space-y-4">
-          {policyPages.map((policyPage, index) => (
-            <AdminListDetails key={policyPage.slug} summary={policyPage.title} meta={policyPage.slug} defaultOpen={index === 0}>
-              <form action={upsertPolicyPage} className="grid gap-3">
-                <input type="hidden" name="slug" value={policyPage.slug} />
-                <input name="title" defaultValue={policyPage.title} className="rounded-2xl border border-[color:var(--color-border)] bg-white px-3 py-2 text-sm" />
-                <textarea name="description" defaultValue={policyPage.description} className="rounded-2xl border border-[color:var(--color-border)] bg-white px-3 py-2 text-sm" />
-                <textarea
-                  name="content"
-                  defaultValue={policyPage.content.join("\n\n")}
-                  className="min-h-52 rounded-2xl border border-[color:var(--color-border)] bg-white px-3 py-2 text-sm"
-                />
-                <button type="submit" className="w-fit rounded-full bg-[color:var(--color-accent)] px-4 py-2 text-sm font-semibold text-white">
-                  Save {policyPage.title}
-                </button>
-              </form>
-            </AdminListDetails>
-          ))}
-        </div>
-      </AdminPanel>
     </>
   );
 }

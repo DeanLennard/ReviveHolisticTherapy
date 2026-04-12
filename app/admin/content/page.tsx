@@ -2,20 +2,19 @@ import Image from "next/image";
 
 import { MediaField } from "@/components/admin/media-field";
 import { AdminListDetails, AdminPageHeader, AdminPanel } from "@/components/admin/admin-ui";
-import { deleteContentItem, moveHeroSlide, upsertFaq, upsertHeroSlide, upsertTestimonial } from "@/lib/admin-actions";
-import { getAllFaqsForAdmin, getAllHeroSlidesFromDb, getAllTestimonialsForAdmin } from "@/lib/content";
+import { deleteContentItem, moveHeroSlide, upsertHeroSlide, upsertTestimonial } from "@/lib/admin-actions";
+import { getAllHeroSlidesFromDb, getAllTestimonialsForAdmin } from "@/lib/content";
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata = buildMetadata({
   title: "Admin Content | Revive Holistic Therapies",
-  description: "Manage hero slides, FAQs, and testimonials from dedicated admin sections.",
+  description: "Manage hero slides and testimonials from dedicated admin sections.",
   path: "/admin/content",
 });
 
 export default async function AdminContentPage() {
-  const [slides, faqs, testimonials] = await Promise.all([
+  const [slides, testimonials] = await Promise.all([
     getAllHeroSlidesFromDb(),
-    getAllFaqsForAdmin(),
     getAllTestimonialsForAdmin(),
   ]);
 
@@ -24,7 +23,7 @@ export default async function AdminContentPage() {
       <AdminPageHeader
         eyebrow="Content"
         title="Content editing is now split into clearer lists"
-        description="Homepage slides, FAQs, and testimonials each have their own add form and expandable edit list, which makes routine content management much easier to follow."
+        description="Homepage slides and testimonials each have their own add form and expandable edit list, which makes routine content management much easier to follow."
       />
 
       <AdminPanel title="Hero carousel" description="Add, reorder, activate, edit, and delete homepage slides.">
@@ -134,54 +133,7 @@ export default async function AdminContentPage() {
         </div>
       </AdminPanel>
 
-      <div className="grid gap-6 xl:grid-cols-2">
-        <AdminPanel title="FAQs" description="Add and maintain frequently asked questions.">
-          <div className="space-y-5">
-            <form action={upsertFaq} className="rounded-[1.5rem] bg-[color:var(--color-surface)] p-5">
-              <p className="font-semibold text-[color:var(--color-heading)]">Add FAQ</p>
-              <div className="mt-4 grid gap-3">
-                <input name="question" placeholder="Question" className="rounded-2xl border border-[color:var(--color-border)] bg-white px-3 py-2 text-sm" />
-                <textarea name="answer" placeholder="Answer" className="rounded-2xl border border-[color:var(--color-border)] bg-white px-3 py-2 text-sm" />
-                <div className="grid gap-3 md:grid-cols-2">
-                  <input name="category" placeholder="Category" className="rounded-2xl border border-[color:var(--color-border)] bg-white px-3 py-2 text-sm" />
-                  <input name="displayOrder" type="number" defaultValue={faqs.length + 1} className="rounded-2xl border border-[color:var(--color-border)] bg-white px-3 py-2 text-sm" />
-                </div>
-                <label className="text-sm"><input name="isActive" type="checkbox" defaultChecked className="mr-2" /> Active</label>
-                <button type="submit" className="w-fit rounded-full bg-[color:var(--color-accent)] px-4 py-2 text-sm font-semibold text-white">Create FAQ</button>
-              </div>
-            </form>
-            <div className="space-y-4">
-              {faqs.map((faq, index) => (
-                <AdminListDetails
-                  key={faq._id?.toHexString()}
-                  summary={faq.question}
-                  meta={`${faq.category} | ${faq.isActive ? "Active" : "Inactive"}`}
-                  defaultOpen={index === 0}
-                >
-                  <form action={upsertFaq} className="grid gap-3">
-                    <input type="hidden" name="id" value={faq._id?.toHexString()} />
-                    <input type="hidden" name="collection" value="faqs" />
-                    <input name="question" defaultValue={faq.question} className="rounded-2xl border border-[color:var(--color-border)] bg-white px-3 py-2 text-sm" />
-                    <textarea name="answer" defaultValue={faq.answer} className="rounded-2xl border border-[color:var(--color-border)] bg-white px-3 py-2 text-sm" />
-                    <div className="grid gap-3 md:grid-cols-2">
-                      <input name="category" defaultValue={faq.category} className="rounded-2xl border border-[color:var(--color-border)] bg-white px-3 py-2 text-sm" />
-                      <input name="displayOrder" type="number" defaultValue={faq.displayOrder} className="rounded-2xl border border-[color:var(--color-border)] bg-white px-3 py-2 text-sm" />
-                    </div>
-                    <div className="flex flex-wrap items-center justify-between gap-3">
-                      <label className="text-sm"><input name="isActive" type="checkbox" defaultChecked={faq.isActive} className="mr-2" /> Active</label>
-                      <div className="flex flex-wrap gap-2">
-                        <button type="submit" className="rounded-full bg-[color:var(--color-accent)] px-4 py-2 text-sm font-semibold text-white">Save FAQ</button>
-                        <button formAction={deleteContentItem} type="submit" className="rounded-full border border-[color:var(--color-border)] bg-white px-4 py-2 text-sm font-semibold text-[color:var(--color-heading)]">Delete</button>
-                      </div>
-                    </div>
-                  </form>
-                </AdminListDetails>
-              ))}
-            </div>
-          </div>
-        </AdminPanel>
-
-        <AdminPanel title="Testimonials" description="Approve, edit, and remove client reviews.">
+      <AdminPanel title="Testimonials" description="Approve, edit, and remove client reviews.">
           <div className="space-y-5">
             <form action={upsertTestimonial} className="rounded-[1.5rem] bg-[color:var(--color-surface)] p-5">
               <p className="font-semibold text-[color:var(--color-heading)]">Add testimonial</p>
@@ -231,8 +183,7 @@ export default async function AdminContentPage() {
               ))}
             </div>
           </div>
-        </AdminPanel>
-      </div>
+      </AdminPanel>
     </>
   );
 }

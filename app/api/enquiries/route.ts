@@ -62,7 +62,7 @@ export async function POST(request: Request) {
     metadata: { subject: parsed.data.subject },
   });
 
-  const recipientEmail = settings?.contactEmail || process.env.SMTP_NOTIFICATION_TO;
+  const recipientEmail = settings?.contactEmail || process.env.RESEND_NOTIFICATION_TO;
 
   if (recipientEmail) {
     try {
@@ -73,7 +73,7 @@ export async function POST(request: Request) {
         subject: parsed.data.subject,
         message: parsed.data.message,
         recipientEmail,
-      });
+      }, settings);
     } catch (error) {
       console.error("Failed to send enquiry notification", error);
     }

@@ -1,7 +1,5 @@
 import "server-only";
 
-import nodemailer from "nodemailer";
-
 import type { BookingDocument, PaymentDocument, SettingsDocument } from "@/lib/db-types";
 
 type EnquiryNotificationInput = {
@@ -19,135 +17,120 @@ type PasswordResetEmailInput = {
 };
 
 type BookingEmailInput = {
-  recipientEmail: string;
+  recipientEmail: string | string[];
   subject: string;
   text: string;
+  replyTo?: string;
 };
 
-function getMailerConfig() {
-  const host = process.env.SMTP_HOST;
-  const port = process.env.SMTP_PORT ? Number(process.env.SMTP_PORT) : 587;
-  const user = process.env.SMTP_USER;
-  const pass = process.env.SMTP_PASS;
-  const from = process.env.SMTP_FROM;
+type ResendPayload = {
+  from: string;
+  to: string | string[];
+  subject: string;
+  text: string;
+  reply_to?: string;
+};
 
-  if (!host || !user || !pass || !from) {
+function getResendConfig(settings?: SettingsDocument | null) {
+  const apiKey = process.env.RESEND_API_KEY;
+  const fromEmail = settings?.emailSettings?.senderEmail || process.env.RESEND_FROM_EMAIL || settings?.contactEmail || "";
+  const fromName = settings?.emailSettings?.senderName || settings?.siteName || "Revive Holistic Therapies";
+
+  if (!apiKey || !fromEmail) {
     return null;
   }
 
   return {
-    host,
-    port,
-    secure: port === 465,
-    auth: {
-      user,
-      pass,
-    },
-    from,
+    apiKey,
+    from: `${fromName} <${fromEmail}>`,
   };
 }
 
-export async function sendEnquiryNotification(input: EnquiryNotificationInput) {
-  const config = getMailerConfig();
+async function sendResendEmail(payload: ResendPayload, settings?: SettingsDocument | null) {
+  const config = getResendConfig(settings);
 
   if (!config) {
-    return { sent: false, reason: "SMTP not configured" as const };
+    return { sent: false, reason: "Resend not configured" as const };
   }
 
-  const transporter = nodemailer.createTransport({
-    host: config.host,
-    port: config.port,
-    secure: config.secure,
-    auth: config.auth,
+  const response = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${config.apiKey}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      from: config.from,
+      to: payload.to,
+      subject: payload.subject,
+      text: payload.text,
+      ...(payload.reply_to ? { reply_to: payload.reply_to } : {}),
+    }),
   });
 
-  await transporter.sendMail({
-    from: config.from,
-    to: input.recipientEmail,
-    replyTo: input.email,
-    subject: `New enquiry: ${input.subject}`,
-    text: [
-      `Name: ${input.name}`,
-      `Email: ${input.email}`,
-      `Phone: ${input.phone}`,
-      "",
-      "Message:",
-      input.message,
-    ].join("\n"),
-  });
-
-  return { sent: true as const };
-}
-
-export async function sendPasswordResetEmail(input: PasswordResetEmailInput) {
-  const config = getMailerConfig();
-
-  if (!config) {
-    return { sent: false, reason: "SMTP not configured" as const };
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(`Resend request failed: ${errorText}`);
   }
-
-  const transporter = nodemailer.createTransport({
-    host: config.host,
-    port: config.port,
-    secure: config.secure,
-    auth: config.auth,
-  });
-
-  await transporter.sendMail({
-    from: config.from,
-    to: input.recipientEmail,
-    subject: "Reset your Revive Holistic Therapies password",
-    text: [
-      "A request was made to reset your client portal password.",
-      "",
-      `Reset your password using this link: ${input.resetUrl}`,
-      "",
-      "If you did not request this, you can ignore this email.",
-    ].join("\n"),
-  });
 
   return { sent: true as const };
 }
 
 function applyTemplate(template: string, replacements: Record<string, string>) {
-  return Object.entries(replacements).reduce(
-    (output, [key, value]) => output.replaceAll(`{{${key}}}`, value),
-    template,
-  );
-}
-
-function resolveSender(settings?: SettingsDocument | null) {
-  return settings?.emailSettings?.senderEmail || process.env.SMTP_FROM || settings?.contactEmail || "no-reply@reviveholistictherapies.com";
+  return Object.entries(replacements).reduce((output, [key, value]) => output.replaceAll(`{{${key}}}`, value), template);
 }
 
 async function sendBookingEmail(input: BookingEmailInput, settings?: SettingsDocument | null) {
-  const config = getMailerConfig();
-
-  if (!config) {
-    return { sent: false, reason: "SMTP not configured" as const };
-  }
-
-  const transporter = nodemailer.createTransport({
-    host: config.host,
-    port: config.port,
-    secure: config.secure,
-    auth: config.auth,
-  });
-
-  await transporter.sendMail({
-    from: resolveSender(settings),
-    to: input.recipientEmail,
-    subject: input.subject,
-    text: input.text,
-  });
-
-  return { sent: true as const };
+  return sendResendEmail(
+    {
+      from: "",
+      to: input.recipientEmail,
+      subject: input.subject,
+      text: input.text,
+      reply_to: input.replyTo,
+    },
+    settings,
+  );
 }
 
-export async function sendBookingConfirmationEmail(
-  booking: BookingDocument,
-  settings?: SettingsDocument | null,
-) {
+export async function sendEnquiryNotification(input: EnquiryNotificationInput, settings?: SettingsDocument | null) {
+  return sendResendEmail(
+    {
+      from: "",
+      to: input.recipientEmail,
+      subject: `New enquiry: ${input.subject}`,
+      text: [
+        `Name: ${input.name}`,
+        `Email: ${input.email}`,
+        `Phone: ${input.phone}`,
+        "",
+        "Message:",
+        input.message,
+      ].join("\n"),
+      reply_to: input.email,
+    },
+    settings,
+  );
+}
+
+export async function sendPasswordResetEmail(input: PasswordResetEmailInput, settings?: SettingsDocument | null) {
+  return sendBookingEmail(
+    {
+      recipientEmail: input.recipientEmail,
+      subject: "Reset your Revive Holistic Therapies password",
+      text: [
+        "A request was made to reset your client portal password.",
+        "",
+        `Reset your password using this link: ${input.resetUrl}`,
+        "",
+        "If you did not request this, you can ignore this email.",
+      ].join("\n"),
+    },
+    settings,
+  );
+}
+
+export async function sendBookingConfirmationEmail(booking: BookingDocument, settings?: SettingsDocument | null) {
   if (settings?.emailSettings?.bookingConfirmationEnabled === false) {
     return { sent: false, reason: "Booking confirmations disabled" as const };
   }
@@ -201,42 +184,30 @@ export async function sendPaymentConfirmationEmail(
   );
 }
 
-export async function sendAdminEventNotification(
-  event: string,
-  booking: BookingDocument,
-  settings?: SettingsDocument | null,
-) {
-  const config = getMailerConfig();
+export async function sendAdminEventNotification(event: string, booking: BookingDocument, settings?: SettingsDocument | null) {
   const recipients = settings?.emailSettings?.notificationRecipients ?? [];
 
-  if (!config || !recipients.length) {
-    return { sent: false, reason: "SMTP or recipients not configured" as const };
+  if (!recipients.length) {
+    return { sent: false, reason: "No notification recipients configured" as const };
   }
 
   const template =
     settings?.emailSettings?.adminNotificationTemplate ||
     "Event: {{event}}\nBooking: {{reference}}\nCustomer: {{customerName}}\nService: {{serviceTitle}}\nDate: {{bookingDate}} {{bookingStart}}";
 
-  const transporter = nodemailer.createTransport({
-    host: config.host,
-    port: config.port,
-    secure: config.secure,
-    auth: config.auth,
-  });
-
-  await transporter.sendMail({
-    from: resolveSender(settings),
-    to: recipients.join(", "),
-    subject: `Clinic admin event: ${event}`,
-    text: applyTemplate(template, {
-      event,
-      reference: booking._id?.toHexString() ?? "Pending",
-      customerName: booking.customerName,
-      serviceTitle: booking.serviceTitle,
-      bookingDate: booking.bookingDate,
-      bookingStart: booking.bookingStart,
-    }),
-  });
-
-  return { sent: true as const };
+  return sendBookingEmail(
+    {
+      recipientEmail: recipients,
+      subject: `Clinic admin event: ${event}`,
+      text: applyTemplate(template, {
+        event,
+        reference: booking._id?.toHexString() ?? "Pending",
+        customerName: booking.customerName,
+        serviceTitle: booking.serviceTitle,
+        bookingDate: booking.bookingDate,
+        bookingStart: booking.bookingStart,
+      }),
+    },
+    settings,
+  );
 }
