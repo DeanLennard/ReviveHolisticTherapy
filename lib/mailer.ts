@@ -16,6 +16,11 @@ type PasswordResetEmailInput = {
   resetUrl: string;
 };
 
+type MagicLinkEmailInput = {
+  recipientEmail: string;
+  magicUrl: string;
+};
+
 type BookingEmailInput = {
   recipientEmail: string | string[];
   subject: string;
@@ -124,6 +129,23 @@ export async function sendPasswordResetEmail(input: PasswordResetEmailInput, set
         `Reset your password using this link: ${input.resetUrl}`,
         "",
         "If you did not request this, you can ignore this email.",
+      ].join("\n"),
+    },
+    settings,
+  );
+}
+
+export async function sendMagicLinkEmail(input: MagicLinkEmailInput, settings?: SettingsDocument | null) {
+  return sendBookingEmail(
+    {
+      recipientEmail: input.recipientEmail,
+      subject: "Your Revive Holistic Therapies sign-in link",
+      text: [
+        "Use the secure link below to access your portal account.",
+        "",
+        input.magicUrl,
+        "",
+        "This link will expire soon and can only be used once.",
       ].join("\n"),
     },
     settings,

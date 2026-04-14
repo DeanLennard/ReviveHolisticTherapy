@@ -1,6 +1,7 @@
 import "server-only";
 
 import bcrypt from "bcryptjs";
+import crypto from "node:crypto";
 import { ObjectId } from "mongodb";
 import { cache } from "react";
 import { redirect } from "next/navigation";
@@ -17,6 +18,21 @@ function omitPassword(user: UserDocument & { _id: ObjectId }): PublicUser {
   return safeUser;
 }
 
+async function signInUser(user: UserDocument & { _id: ObjectId }) {
+  const token = await createSession({
+    userId: user._id.toHexString(),
+    email: user.email,
+    role: user.role,
+  });
+
+  await setSessionCookie(token);
+  await getCollections().then(({ users }) =>
+    users.updateOne({ _id: user._id }, { $set: { lastLoginAt: new Date(), updatedAt: new Date() } }),
+  );
+
+  return omitPassword(user);
+}
+
 export async function hashPassword(password: string) {
   return bcrypt.hash(password, 12);
 }
@@ -29,7 +45,7 @@ export async function signInWithCredentials(email: string, password: string) {
   const { users } = await getCollections();
   const user = await users.findOne({ email });
 
-  if (!user?._id) {
+  if (!user?._id || !user.passwordHash) {
     return null;
   }
 
@@ -39,16 +55,39 @@ export async function signInWithCredentials(email: string, password: string) {
     return null;
   }
 
-  const token = await createSession({
-    userId: user._id.toHexString(),
-    email: user.email,
-    role: user.role,
+  return signInUser(user as UserDocument & { _id: ObjectId });
+}
+
+export async function consumeMagicLinkToken(rawToken: string) {
+  const tokenHash = crypto.createHash("sha256").update(rawToken).digest("hex");
+  const { passwordResetTokens, users } = await getCollections();
+  const token = await passwordResetTokens.findOne({
+    tokenHash,
+    purpose: "magic-link",
+    usedAt: null,
+    expiresAt: { $gt: new Date() },
   });
 
-  await setSessionCookie(token);
-  await users.updateOne({ _id: user._id }, { $set: { lastLoginAt: new Date(), updatedAt: new Date() } });
+  if (!token?.userId) {
+    return null;
+  }
 
-  return omitPassword(user as UserDocument & { _id: ObjectId });
+  const user = await users.findOne({ _id: token.userId });
+
+  if (!user?._id) {
+    return null;
+  }
+
+  await passwordResetTokens.updateOne(
+    { _id: token._id },
+    {
+      $set: {
+        usedAt: new Date(),
+      },
+    },
+  );
+
+  return signInUser(user as UserDocument & { _id: ObjectId });
 }
 
 export async function signOut() {

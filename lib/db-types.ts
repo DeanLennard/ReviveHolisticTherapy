@@ -238,6 +238,7 @@ export type PasswordResetTokenDocument = {
   userId: ObjectId;
   email: string;
   tokenHash: string;
+  purpose?: "magic-link" | "password-reset";
   expiresAt: Date;
   usedAt?: Date | null;
   createdAt: Date;

@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 
 import { requireApiUser } from "@/lib/api-auth";
 import { writeAuditLog } from "@/lib/audit-log";
+import { hashPassword } from "@/lib/auth";
 import { isSlotAvailable, validateBookingRules } from "@/lib/booking";
 import { getCollections } from "@/lib/collections";
 import { getCurrentUser } from "@/lib/auth";
@@ -21,6 +22,15 @@ function getClientKey(request: Request) {
   }
 
   return "unknown";
+}
+
+function splitCustomerName(customerName: string) {
+  const [firstName, ...rest] = customerName.trim().split(/\s+/);
+
+  return {
+    firstName: firstName || "Guest",
+    lastName: rest.join(" ") || "Client",
+  };
 }
 
 export async function GET() {
@@ -73,15 +83,79 @@ export async function POST(request: Request) {
   }
 
   const currentUser = await getCurrentUser();
-  const { bookings } = await getCollections();
+  const { bookings, users, payments } = await getCollections();
   const now = new Date();
   const expectedPayment = calculateExpectedPayment(service, parsed.data.paymentMode);
+  const normalizedEmail = parsed.data.customerEmail.trim().toLowerCase();
+  let bookingUserId = currentUser?._id ?? null;
+
+  if (!bookingUserId) {
+    const existingUser = await users.findOne({ email: normalizedEmail });
+
+    if (existingUser?._id) {
+      bookingUserId = existingUser._id;
+
+      const nameParts = splitCustomerName(parsed.data.customerName);
+      await users.updateOne(
+        { _id: existingUser._id },
+        {
+          $set: {
+            firstName: existingUser.firstName || nameParts.firstName,
+            lastName: existingUser.lastName || nameParts.lastName,
+            phone: existingUser.phone || parsed.data.customerPhone,
+            updatedAt: now,
+          },
+        },
+      );
+    } else {
+      const nameParts = splitCustomerName(parsed.data.customerName);
+      const createdUser = await users.insertOne({
+        firstName: nameParts.firstName,
+        lastName: nameParts.lastName,
+        email: normalizedEmail,
+        phone: parsed.data.customerPhone,
+        passwordHash: await hashPassword(crypto.randomUUID()),
+        role: "customer",
+        marketingConsent: false,
+        createdAt: now,
+        updatedAt: now,
+        lastLoginAt: null,
+      });
+      bookingUserId = createdUser.insertedId;
+    }
+
+    if (bookingUserId) {
+      const orphanBookings = await bookings.find({ customerEmail: normalizedEmail, userId: null }, { projection: { _id: 1 } }).toArray();
+      const orphanBookingIds = orphanBookings.map((booking) => booking._id).filter((value): value is ObjectId => Boolean(value));
+
+      if (orphanBookingIds.length) {
+        await bookings.updateMany(
+          { _id: { $in: orphanBookingIds } },
+          {
+            $set: {
+              userId: bookingUserId,
+              updatedAt: now,
+            },
+          },
+        );
+        await payments.updateMany(
+          { bookingId: { $in: orphanBookingIds }, userId: null },
+          {
+            $set: {
+              userId: bookingUserId,
+              updatedAt: now,
+            },
+          },
+        );
+      }
+    }
+  }
 
   const result = await bookings.insertOne({
-    userId: currentUser?._id ?? null,
+    userId: bookingUserId,
     serviceId: service._id instanceof ObjectId ? service._id : new ObjectId(service._id),
     customerName: parsed.data.customerName,
-    customerEmail: parsed.data.customerEmail,
+    customerEmail: normalizedEmail,
     customerPhone: parsed.data.customerPhone,
     serviceTitle: service.title,
     practitionerName: parsed.data.practitionerName ?? null,

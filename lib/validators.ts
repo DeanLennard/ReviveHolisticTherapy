@@ -5,6 +5,10 @@ export const loginSchema = z.object({
   password: z.string().min(8),
 });
 
+export const magicLinkRequestSchema = z.object({
+  email: z.email().trim().toLowerCase(),
+});
+
 export const signupSchema = z.object({
   firstName: z.string().min(2).trim(),
   lastName: z.string().min(2).trim(),

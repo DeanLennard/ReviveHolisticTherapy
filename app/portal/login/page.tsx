@@ -21,8 +21,8 @@ export default async function PortalLoginPage() {
     <div className="shell py-8 sm:py-10">
       <PageHero
         eyebrow="Client portal"
-        title="Sign in to manage your bookings online"
-        description="Returning clients can sign in to view upcoming appointments, update profile details, and review payment history in one secure place."
+        title="Access your bookings with a secure email link"
+        description="Returning clients can request a magic link to view upcoming appointments, update profile details, and review payment history without needing a password."
       />
 
       <section className="mt-14">

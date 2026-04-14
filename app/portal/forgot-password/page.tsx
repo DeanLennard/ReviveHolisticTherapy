@@ -3,8 +3,8 @@ import { PasswordResetRequestForm } from "@/components/auth/password-reset-reque
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata = buildMetadata({
-  title: "Forgot Password | Revive Holistic Therapies",
-  description: "Request a password reset link for your Revive Holistic Therapies client portal account.",
+  title: "Email Login Link | Revive Holistic Therapies",
+  description: "Request a secure sign-in link for your Revive Holistic Therapies client portal account.",
   path: "/portal/forgot-password",
 });
 
@@ -13,8 +13,8 @@ export default function ForgotPasswordPage() {
     <div className="shell py-8 sm:py-10">
       <PageHero
         eyebrow="Client portal"
-        title="Reset your password securely"
-        description="Request a time-limited password reset link for your portal account."
+        title="Request a secure sign-in link"
+        description="Password access has been replaced with magic links. Enter your email address and we will send you a secure sign-in link if an account exists."
       />
       <section className="mt-14">
         <PasswordResetRequestForm />
