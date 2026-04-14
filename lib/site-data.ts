@@ -121,6 +121,7 @@ export const site = {
   domain: "https://reviveholistictherapies.com",
   accent: "#2ba3ac",
   phone: "07730282309",
+  whatsappNumber: "+447730282309",
   email: "info@reviveholistictherapies.com",
   address: [
     "Revive Holistic Therapies",

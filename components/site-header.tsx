@@ -147,13 +147,14 @@ export function SiteHeader() {
   const [isOpen, setIsOpen] = useState(false);
   const [openDesktopMenu, setOpenDesktopMenu] = useState<string | null>(null);
   const [openMobileSection, setOpenMobileSection] = useState<string | null>(null);
+  const whatsappHref = `https://wa.me/${site.whatsappNumber.replace(/\D+/g, "")}`;
 
   return (
     <header className="sticky top-0 z-50 border-b border-[color:var(--color-hairline)] bg-white/92 backdrop-blur-xl">
       <div className="border-b border-[color:var(--color-hairline)] bg-white/72">
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 text-sm text-[color:var(--color-text-muted)] sm:px-6 lg:px-8">
-          <p className="hidden max-w-3xl lg:block">{site.businessSummary}</p>
-          <div className="flex items-center gap-3">
+        <div className="mx-auto flex max-w-7xl flex-col gap-3 px-4 py-3 text-sm text-[color:var(--color-text-muted)] sm:px-6 lg:flex-row lg:flex-nowrap lg:items-start lg:justify-between lg:gap-6 lg:px-8">
+          <p className="hidden min-w-0 max-w-[30rem] flex-1 leading-6 lg:block xl:max-w-[42rem]">{site.businessSummary}</p>
+          <div className="flex shrink-0 flex-wrap items-center gap-3 lg:flex-nowrap lg:justify-end">
             <Link
               className="hidden rounded-full bg-[color:var(--color-accent)] px-4 py-2 text-sm font-semibold text-white shadow-[0_18px_36px_-24px_rgba(43,163,172,0.75)] transition hover:-translate-y-0.5 hover:bg-[color:var(--color-accent-strong)] lg:inline-flex"
               href="/portal/login"
@@ -162,16 +163,19 @@ export function SiteHeader() {
             </Link>
             <a
               className="inline-flex rounded-full bg-[#25d366] px-4 py-2 text-sm font-semibold !text-white shadow-[0_18px_36px_-24px_rgba(37,211,102,0.7)] transition hover:-translate-y-0.5 hover:bg-[#1ebe5b]"
-              href={`https://wa.me/${site.phone.replace(/\D+/g, "")}`}
+              href={whatsappHref}
               target="_blank"
               rel="noopener noreferrer"
             >
               WhatsApp
             </a>
-            <a className="transition hover:text-[color:var(--color-accent)]" href={`tel:${site.phone.replace(/\s+/g, "")}`}>
+            <a className="whitespace-nowrap transition hover:text-[color:var(--color-accent)]" href={`tel:${site.phone.replace(/\s+/g, "")}`}>
               {site.phone}
             </a>
-            <a className="transition hover:text-[color:var(--color-accent)]" href={`mailto:${site.email}`}>
+            <a
+              className="hidden whitespace-nowrap transition hover:text-[color:var(--color-accent)] sm:inline"
+              href={`mailto:${site.email}`}
+            >
               {site.email}
             </a>
           </div>
@@ -413,7 +417,7 @@ export function SiteHeader() {
             </div>
 
             <a
-              href={`https://wa.me/${site.phone.replace(/\D+/g, "")}`}
+              href={whatsappHref}
               target="_blank"
               rel="noopener noreferrer"
               className="rounded-2xl px-4 py-3 font-medium text-[color:var(--color-heading)] transition hover:bg-[color:var(--color-surface)]"

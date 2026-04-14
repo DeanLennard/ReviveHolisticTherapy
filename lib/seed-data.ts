@@ -37,7 +37,7 @@ export function buildSeedSettings(): SettingsDocument {
       defaultDepositValue: 25,
     },
     contactOptions: {
-      whatsappNumber: site.phone,
+      whatsappNumber: site.whatsappNumber,
       whatsappEnabled: true,
     },
     footerCta: {
