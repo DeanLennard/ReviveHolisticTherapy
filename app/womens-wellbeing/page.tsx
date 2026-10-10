@@ -5,6 +5,7 @@ import { PageHero } from "@/components/page-hero";
 import { SchemaScript } from "@/components/schema-script";
 import { SectionHeading } from "@/components/section-heading";
 import { buildMetadata } from "@/lib/seo";
+import { site } from "@/lib/site-data";
 
 export const metadata = buildMetadata({
   title: "Women's Wellbeing Treatments Cannock | Massage, Facials & Holistic Care | Revive Holistic Therapies",
@@ -84,7 +85,7 @@ export default function WomensWellbeingPage() {
       name: "Women's Wellbeing Treatments",
       description:
         "Women's wellbeing treatments in Cannock including pregnancy massage, menopause support, facials and holistic therapies.",
-      url: "https://new.reviveholistictherapies.com/womens-wellbeing",
+      url: `${site.domain}/womens-wellbeing`,
       about: treatmentCategories.map((item) => ({
         "@type": "Service",
         name: item.title,

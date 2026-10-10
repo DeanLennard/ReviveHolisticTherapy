@@ -6,6 +6,7 @@ export const metadata = buildMetadata({
   title: "Gift Vouchers | Revive Holistic Therapies",
   description: "Explore gift voucher options for massage and holistic therapy treatments at Revive Holistic Therapies.",
   path: "/gift-vouchers",
+  index: false,
 });
 
 export default function GiftVouchersPage() {

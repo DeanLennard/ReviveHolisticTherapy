@@ -1,9 +1,14 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 
 import { PageHero } from "@/components/page-hero";
 import { sendAdminEventNotification, sendBookingConfirmationEmail } from "@/lib/mailer";
 import { syncBookingPaymentFromSuccess } from "@/lib/payment-checkout";
 import { getSiteSettings } from "@/lib/content";
+
+export const metadata: Metadata = {
+  robots: { index: false, follow: false },
+};
 
 type SuccessPageProps = {
   searchParams?: Promise<Record<string, string | string[] | undefined>>;

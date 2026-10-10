@@ -8,6 +8,7 @@ export const metadata = buildMetadata({
   title: "Acupuncture in Cannock | Coming Soon | Revive Holistic Therapies",
   description: "Acupuncture is coming soon to Revive Holistic Therapies in Cannock. Register your interest today.",
   path: "/holistic-therapies/acupuncture",
+  index: false,
 });
 
 export default function AcupuncturePage() {

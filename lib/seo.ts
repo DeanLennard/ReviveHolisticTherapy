@@ -6,9 +6,10 @@ type MetadataInput = {
   title: string;
   description: string;
   path?: string;
+  index?: boolean;
 };
 
-export function buildMetadata({ title, description, path = "/" }: MetadataInput): Metadata {
+export function buildMetadata({ title, description, path = "/", index = true }: MetadataInput): Metadata {
   const canonical = new URL(path, site.domain).toString();
 
   return {
@@ -31,6 +32,7 @@ export function buildMetadata({ title, description, path = "/" }: MetadataInput)
       title,
       description,
     },
+    robots: index ? undefined : { index: false, follow: false },
   };
 }
 

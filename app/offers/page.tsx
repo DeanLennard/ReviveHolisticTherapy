@@ -8,6 +8,7 @@ export const metadata = buildMetadata({
   title: "Offers | Revive Holistic Therapies",
   description: "Browse current and future promotions from Revive Holistic Therapies.",
   path: "/offers",
+  index: false,
 });
 
 export default function OffersPage() {

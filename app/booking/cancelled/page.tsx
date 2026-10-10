@@ -1,6 +1,11 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 
 import { PageHero } from "@/components/page-hero";
+
+export const metadata: Metadata = {
+  robots: { index: false, follow: false },
+};
 
 export default function BookingCancelledPage() {
   return (

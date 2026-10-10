@@ -5,6 +5,7 @@ import { PageHero } from "@/components/page-hero";
 import { SchemaScript } from "@/components/schema-script";
 import { SectionHeading } from "@/components/section-heading";
 import { buildMetadata } from "@/lib/seo";
+import { site } from "@/lib/site-data";
 
 export const metadata = buildMetadata({
   title: "Facials Cannock | Relaxing & Skin Rejuvenating Treatments | Revive Holistic Therapies",
@@ -84,7 +85,7 @@ export default function FacialsPage() {
       name: "Facial Treatments",
       description:
         "Facials in Cannock including Gua Sha, Rose, Neroli, mini facials and recharge facials for skin refreshment and relaxation.",
-      url: "https://new.reviveholistictherapies.com/facials",
+      url: `${site.domain}/facials`,
       about: facialTreatments.map((item) => ({
         "@type": "Service",
         name: item.title,

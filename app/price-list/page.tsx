@@ -7,6 +7,7 @@ import { SectionHeading } from "@/components/section-heading";
 import { getServicesFromDb } from "@/lib/content";
 import { mapService } from "@/lib/mappers";
 import { buildMetadata } from "@/lib/seo";
+import { site } from "@/lib/site-data";
 
 export const metadata = buildMetadata({
   title: "Massage & Treatment Prices Cannock | Revive Holistic Therapies",
@@ -196,7 +197,7 @@ export default async function PriceListPage() {
       name: "Treatment Prices",
       description:
         "Massage, reflexology, facial and holistic therapy prices in Cannock for Revive Holistic Therapies.",
-      url: "https://new.reviveholistictherapies.com/price-list",
+      url: `${site.domain}/price-list`,
     },
   ];
 

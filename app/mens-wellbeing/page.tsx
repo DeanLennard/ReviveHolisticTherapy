@@ -5,6 +5,7 @@ import { PageHero } from "@/components/page-hero";
 import { SchemaScript } from "@/components/schema-script";
 import { SectionHeading } from "@/components/section-heading";
 import { buildMetadata } from "@/lib/seo";
+import { site } from "@/lib/site-data";
 
 export const metadata = buildMetadata({
   title: "Men's Massage & Wellbeing Cannock | Deep Tissue & Relaxation | Revive Holistic Therapies",
@@ -72,7 +73,7 @@ export default function MensWellbeingPage() {
       name: "Men's Wellbeing Treatments",
       description:
         "Men's massage and wellbeing treatments in Cannock including deep tissue massage, stress relief massage and facials.",
-      url: "https://new.reviveholistictherapies.com/mens-wellbeing",
+      url: `${site.domain}/mens-wellbeing`,
       about: treatmentCategories.map((item) => ({
         "@type": "Service",
         name: item.title,

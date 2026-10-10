@@ -118,7 +118,7 @@ export type NavItem = NavLinkItem & {
 
 export const site = {
   name: "Revive Holistic Therapies",
-  domain: "https://new.reviveholistictherapies.com",
+  domain: "https://www.reviveholistictherapies.com",
   accent: "#0D3371",
   phone: "07730282309",
   whatsappNumber: "+447730282309",

@@ -1,8 +1,13 @@
+import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import Link from "next/link";
 
 import { AdminNav } from "@/components/admin/admin-nav";
 import { requireRole } from "@/lib/auth";
+
+export const metadata: Metadata = {
+  robots: { index: false, follow: false },
+};
 
 export default async function AdminLayout({ children }: { children: ReactNode }) {
   await requireRole(["super_admin", "admin", "content_editor", "bookings_manager"]);

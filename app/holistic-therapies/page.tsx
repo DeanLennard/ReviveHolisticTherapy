@@ -5,6 +5,7 @@ import { PageHero } from "@/components/page-hero";
 import { SchemaScript } from "@/components/schema-script";
 import { SectionHeading } from "@/components/section-heading";
 import { buildMetadata } from "@/lib/seo";
+import { site } from "@/lib/site-data";
 
 export const metadata = buildMetadata({
   title: "Holistic Therapies Cannock | Crystal Therapy & Hopi Ear Candles | Revive Holistic Therapies",
@@ -78,7 +79,7 @@ export default function HolisticTherapiesPage() {
       name: "Holistic Therapies",
       description:
         "Holistic therapies in Cannock including crystal therapy, Hopi ear candles and wellbeing treatments that support relaxation and balance.",
-      url: "https://new.reviveholistictherapies.com/holistic-therapies",
+      url: `${site.domain}/holistic-therapies`,
       about: therapies.map((item) => ({
         "@type": "Service",
         name: item.title,

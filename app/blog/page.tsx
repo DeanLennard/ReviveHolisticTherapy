@@ -6,6 +6,7 @@ export const metadata = buildMetadata({
   title: "Advice Centre | Revive Holistic Therapies",
   description: "Read future blog and advice content from Revive Holistic Therapies.",
   path: "/blog",
+  index: false,
 });
 
 export default function BlogPage() {
