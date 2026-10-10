@@ -189,7 +189,7 @@ export function SiteHeader() {
         <Link href="/" className="flex items-center gap-4 text-[color:var(--color-heading)]" onClick={() => setIsOpen(false)}>
           <span className="flex h-[3.25rem] w-[3.25rem] items-center justify-center overflow-hidden rounded-[1.35rem] border border-[color:var(--color-border)] bg-[linear-gradient(180deg,#ffffff_0%,#edf5f5_100%)] shadow-[0_18px_35px_-28px_rgba(31,42,46,0.3)]">
             <Image
-              src="/icon.png"
+              src="/icon.png?v=20261010"
               alt="Revive Holistic Therapies icon"
               width={52}
               height={52}
