@@ -14,6 +14,10 @@ type ServiceOption = {
   payLaterEnabled?: boolean;
 };
 
+type PaymentMode = "full-online" | "deposit" | "pay-later";
+type PaymentProvider = "stripe" | "gocardless" | "clinic";
+type OnlinePaymentProvider = Exclude<PaymentProvider, "clinic">;
+
 type PaymentSettings = {
   stripeEnabled: boolean;
   goCardlessEnabled: boolean;
@@ -50,34 +54,53 @@ export function BookingForm({ services, paymentSettings, bookingSettings }: Book
   const [date, setDate] = useState(todayString());
   const [slots, setSlots] = useState<Array<{ start: string; end: string; practitionerName: string }>>([]);
   const [selectedSlot, setSelectedSlot] = useState<{ start: string; end: string; practitionerName: string } | null>(null);
-  const [paymentMode, setPaymentMode] = useState<"full-online" | "deposit" | "pay-later">("deposit");
-  const [paymentProvider, setPaymentProvider] = useState<"stripe" | "gocardless" | "clinic">(
+  const [paymentMode, setPaymentMode] = useState<PaymentMode>(
+    paymentSettings.stripeEnabled || paymentSettings.goCardlessEnabled ? "deposit" : "pay-later",
+  );
+  const [paymentProvider, setPaymentProvider] = useState<PaymentProvider>(
     paymentSettings.defaultMethod === "GoCardless" ? "gocardless" : paymentSettings.defaultMethod === "Pay on arrival" ? "clinic" : "stripe",
   );
   const [message, setMessage] = useState("");
   const [submitting, setSubmitting] = useState(false);
 
   const selectedService = useMemo(() => services.find((service) => service.id === serviceId), [serviceId, services]);
+  const availableProviders = useMemo(() => {
+    const acceptedMethods = selectedService?.acceptedPaymentMethods ?? ["stripe", "gocardless"];
+    const providers: OnlinePaymentProvider[] = [];
 
-  function getPreferredProvider(service: ServiceOption | undefined) {
-    if (!service) {
-      return "clinic" as const;
+    if (paymentSettings.stripeEnabled && acceptedMethods.includes("stripe")) {
+      providers.push("stripe");
     }
 
-    if (service.acceptedPaymentMethods?.includes(paymentProvider)) {
-      return paymentProvider;
+    if (paymentSettings.goCardlessEnabled && acceptedMethods.includes("gocardless")) {
+      providers.push("gocardless");
     }
 
-    if (service.acceptedPaymentMethods?.includes("stripe")) {
-      return "stripe" as const;
+    return providers;
+  }, [paymentSettings.goCardlessEnabled, paymentSettings.stripeEnabled, selectedService]);
+  const availablePaymentModes = useMemo<PaymentMode[]>(() => {
+    if (!availableProviders.length) {
+      return ["pay-later"];
     }
 
-    if (service.acceptedPaymentMethods?.includes("gocardless")) {
-      return "gocardless" as const;
+    if (selectedService?.fullPaymentRequired) {
+      return ["full-online"];
     }
 
-    return "clinic" as const;
-  }
+    const modes: PaymentMode[] = ["full-online", "deposit"];
+    if (paymentSettings.payLaterEnabled !== false && selectedService?.payLaterEnabled !== false) {
+      modes.push("pay-later");
+    }
+
+    return modes;
+  }, [availableProviders.length, paymentSettings.payLaterEnabled, selectedService]);
+  const activePaymentMode = availablePaymentModes.includes(paymentMode) ? paymentMode : availablePaymentModes[0] ?? "pay-later";
+  const activePaymentProvider =
+    activePaymentMode === "pay-later"
+      ? "clinic"
+      : availableProviders.includes(paymentProvider as OnlinePaymentProvider)
+        ? paymentProvider
+        : availableProviders[0] ?? "clinic";
 
   useEffect(() => {
     let active = true;
@@ -127,8 +150,8 @@ export function BookingForm({ services, paymentSettings, bookingSettings }: Book
       customerPhone: String(formData.get("phone") ?? ""),
       practitionerName: selectedSlot.practitionerName,
       notes: String(formData.get("notes") ?? ""),
-      paymentMode: String(formData.get("paymentMode") ?? "deposit"),
-      paymentProvider: String(formData.get("paymentProvider") ?? "clinic"),
+      paymentMode: activePaymentMode,
+      paymentProvider: activePaymentProvider,
     };
 
     const response = await fetch("/api/bookings", {
@@ -173,10 +196,7 @@ export function BookingForm({ services, paymentSettings, bookingSettings }: Book
             value={serviceId}
             onChange={(event) => {
               const nextServiceId = event.target.value;
-              const nextService = services.find((service) => service.id === nextServiceId);
               setServiceId(nextServiceId);
-              setPaymentMode(nextService?.fullPaymentRequired ? "full-online" : nextService?.paymentMode ?? "deposit");
-              setPaymentProvider(getPreferredProvider(nextService));
             }}
             className="focus-ring mt-2 w-full rounded-2xl border border-[color:var(--color-border)] bg-white px-4 py-3 outline-none"
           >
@@ -252,37 +272,36 @@ export function BookingForm({ services, paymentSettings, bookingSettings }: Book
       </label>
 
       <div className="mt-8 grid gap-4 sm:grid-cols-3">
-        {(selectedService?.payLaterEnabled === false
-          ? [
-              { label: `Pay full online${paymentSettings.stripeEnabled ? " via hosted checkout" : ""}`, value: "full-online" as const },
-              { label: "Pay deposit only", value: "deposit" as const },
-            ]
-          : [
-          { label: `Pay full online${paymentSettings.stripeEnabled ? " via hosted checkout" : ""}`, value: "full-online" as const },
-          { label: "Pay deposit only", value: "deposit" as const },
-          { label: "Pay on arrival", value: "pay-later" as const },
-        ]).map((option) => (
+        {availablePaymentModes.map((value) => {
+          const option = {
+            "full-online": { label: "Pay full online", value },
+            deposit: { label: "Pay deposit only", value },
+            "pay-later": { label: "Pay on arrival", value },
+          }[value];
+
+          return (
           <label key={option.label} className="rounded-[1.25rem] border border-[color:var(--color-border)] p-4 text-sm font-medium text-[color:var(--color-heading)]">
             <input
               type="radio"
               name="paymentMode"
               value={option.value}
-              checked={paymentMode === option.value}
+              checked={activePaymentMode === option.value}
               onChange={() => setPaymentMode(option.value)}
               className="mr-3"
             />
             {option.label}
           </label>
-        ))}
+          );
+        })}
       </div>
 
-      {paymentMode !== "pay-later" ? (
+      {activePaymentMode !== "pay-later" && availableProviders.length ? (
         <div className="mt-6 grid gap-4 sm:grid-cols-3">
           {[
-            paymentSettings.stripeEnabled && selectedService?.acceptedPaymentMethods?.includes("stripe")
+            availableProviders.includes("stripe")
               ? { label: "Stripe checkout", value: "stripe" as const }
               : null,
-            paymentSettings.goCardlessEnabled && selectedService?.acceptedPaymentMethods?.includes("gocardless")
+            availableProviders.includes("gocardless")
               ? { label: "GoCardless bank payment", value: "gocardless" as const }
               : null,
           ]
@@ -293,7 +312,7 @@ export function BookingForm({ services, paymentSettings, bookingSettings }: Book
                   type="radio"
                   name="paymentProvider"
                   value={provider?.value}
-                  checked={paymentProvider === provider?.value}
+                  checked={activePaymentProvider === provider?.value}
                   onChange={() => setPaymentProvider(provider!.value)}
                   className="mr-3"
                 />

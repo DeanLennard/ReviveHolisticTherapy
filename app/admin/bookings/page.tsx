@@ -5,6 +5,7 @@ import { BookingSchedule } from "@/components/admin/booking-schedule";
 import { AdminPageHeader, AdminPanel, AdminStatCard, AdminStatGrid } from "@/components/admin/admin-ui";
 import { createManualBooking, updateBookingDetails, updateBookingStatus } from "@/lib/admin-actions";
 import { getAllServicesForAdmin, getBookingsForAdmin } from "@/lib/content";
+import { addDaysToDateKey, getBusinessDateKey } from "@/lib/date";
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata = buildMetadata({
@@ -47,11 +48,10 @@ export default async function AdminBookingsPage({ searchParams }: BookingsPagePr
     return true;
   });
 
-  const today = new Date().toISOString().slice(0, 10);
-  const weekAhead = new Date();
-  weekAhead.setDate(weekAhead.getDate() + 7);
+  const today = getBusinessDateKey();
+  const weekAhead = addDaysToDateKey(today, 6);
   const bookingsToday = bookings.filter((booking) => booking.bookingDate === today);
-  const bookingsThisWeek = bookings.filter((booking) => new Date(`${booking.bookingDate}T${booking.bookingStart}:00`) <= weekAhead);
+  const bookingsThisWeek = bookings.filter((booking) => booking.bookingDate >= today && booking.bookingDate <= weekAhead);
   const currentMonthLabel = new Intl.DateTimeFormat("en-GB", { month: "long", year: "numeric" }).format(new Date());
 
   return (

@@ -8,7 +8,7 @@ import { isSlotAvailable, validateBookingRules } from "@/lib/booking";
 import { getCollections } from "@/lib/collections";
 import { getCurrentUser } from "@/lib/auth";
 import { getServiceBySlugFromDb, getServicesFromDb, getSiteSettings } from "@/lib/content";
-import { sendAdminEventNotification, sendBookingConfirmationEmail, sendPaymentConfirmationEmail } from "@/lib/mailer";
+import { sendAdminEventNotification, sendBookingConfirmationEmail } from "@/lib/mailer";
 import { createPaymentCheckoutForBooking } from "@/lib/payment-checkout";
 import { calculateExpectedPayment, createPaymentLog } from "@/lib/payments";
 import { checkRateLimit } from "@/lib/rate-limit";
@@ -82,10 +82,32 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Selected time is no longer available" }, { status: 409 });
   }
 
+  const settings = await getSiteSettings();
+  const paymentSettings = settings?.paymentSettings ?? {
+    stripeEnabled: true,
+    goCardlessEnabled: true,
+    payLaterEnabled: true,
+  };
+  const acceptedMethods = service.acceptedPaymentMethods ?? ["stripe", "gocardless"];
+  const availableProviders = [
+    ...(paymentSettings.stripeEnabled && acceptedMethods.includes("stripe") ? ["stripe" as const] : []),
+    ...(paymentSettings.goCardlessEnabled && acceptedMethods.includes("gocardless") ? ["gocardless" as const] : []),
+  ];
+  const paymentMode = availableProviders.length === 0 ? "pay-later" : parsed.data.paymentMode;
+  const paymentProvider = paymentMode === "pay-later" ? "clinic" : parsed.data.paymentProvider;
+
+  if (paymentMode !== "pay-later" && !availableProviders.includes(paymentProvider as "stripe" | "gocardless")) {
+    return NextResponse.json({ error: "The selected payment method is not currently available." }, { status: 400 });
+  }
+
+  if (paymentMode === "pay-later" && availableProviders.length > 0 && (paymentSettings.payLaterEnabled === false || service.payLaterEnabled === false)) {
+    return NextResponse.json({ error: "Pay on arrival is not available for this treatment." }, { status: 400 });
+  }
+
   const currentUser = await getCurrentUser();
   const { bookings, users, payments } = await getCollections();
   const now = new Date();
-  const expectedPayment = calculateExpectedPayment(service, parsed.data.paymentMode);
+  const expectedPayment = calculateExpectedPayment(service, paymentMode);
   const normalizedEmail = parsed.data.customerEmail.trim().toLowerCase();
   let bookingUserId = currentUser?._id ?? null;
 
@@ -164,9 +186,9 @@ export async function POST(request: Request) {
     bookingEnd: parsed.data.bookingEnd,
     status: "pending",
     paymentStatus: expectedPayment.status,
-    paymentProvider: parsed.data.paymentMode === "pay-later" ? "clinic" : parsed.data.paymentProvider,
+    paymentProvider,
     paymentReference: null,
-    paymentMode: parsed.data.paymentMode,
+    paymentMode,
     reminderSentAt: null,
     depositAmount: expectedPayment.type === "deposit" ? expectedPayment.amount : 0,
     totalAmount: service.price,
@@ -177,7 +199,6 @@ export async function POST(request: Request) {
   });
 
   const booking = await bookings.findOne({ _id: result.insertedId });
-  const settings = await getSiteSettings();
 
   let redirectUrl: string | null = null;
 
@@ -185,24 +206,23 @@ export async function POST(request: Request) {
     await sendBookingConfirmationEmail(booking, settings).catch(() => undefined);
 
     if (expectedPayment.amount > 0) {
-      const payment = await createPaymentLog({
+      await createPaymentLog({
         bookingId: booking._id ?? null,
         userId: booking.userId ?? null,
-        provider: parsed.data.paymentMode === "pay-later" ? "clinic" : parsed.data.paymentProvider,
+        provider: paymentProvider,
         amount: expectedPayment.amount,
         type: expectedPayment.type,
         status: expectedPayment.status,
         notes: "Awaiting live provider completion",
       });
 
-      await sendPaymentConfirmationEmail(booking, payment, settings).catch(() => undefined);
     }
 
-    if (parsed.data.paymentMode !== "pay-later") {
+    if (paymentMode !== "pay-later" && (paymentProvider === "stripe" || paymentProvider === "gocardless")) {
       const checkout = await createPaymentCheckoutForBooking({
         booking,
         service,
-        provider: parsed.data.paymentProvider === "clinic" ? "stripe" : parsed.data.paymentProvider,
+        provider: paymentProvider,
       }).catch(() => null);
 
       redirectUrl = checkout?.url ?? null;

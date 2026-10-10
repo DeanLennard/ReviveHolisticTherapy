@@ -18,6 +18,7 @@ export default async function BookingPage() {
     stripeEnabled: true,
     goCardlessEnabled: true,
     defaultMethod: "Stripe",
+    payLaterEnabled: true,
     refundSupport: true,
   };
   const bookingSettings = settings?.bookingSettings ?? {
@@ -26,6 +27,7 @@ export default async function BookingPage() {
     cancellationWindowHours: 24,
     rescheduleWindowHours: 24,
   };
+  const onlinePaymentsEnabled = paymentSettings.stripeEnabled || paymentSettings.goCardlessEnabled;
 
   return (
     <div className="shell py-8 sm:py-10">
@@ -64,10 +66,19 @@ export default async function BookingPage() {
           <div className="rounded-[2rem] border border-[color:var(--color-border)] bg-white p-8 shadow-[var(--shadow-soft)]">
             <p className="font-display text-2xl font-semibold">Payment configuration preview</p>
             <div className="mt-5 space-y-4 text-sm text-[color:var(--color-text-muted)]">
-              <p>Stripe enabled: {paymentSettings.stripeEnabled ? "Yes" : "No"}</p>
-              <p>GoCardless enabled: {paymentSettings.goCardlessEnabled ? "Yes" : "No"}</p>
-              <p>Default method: {paymentSettings.defaultMethod}</p>
-              <p>Refund support: {paymentSettings.refundSupport ? "Enabled" : "Disabled"}</p>
+              {onlinePaymentsEnabled ? (
+                <>
+                  <p>Stripe enabled: {paymentSettings.stripeEnabled ? "Yes" : "No"}</p>
+                  <p>GoCardless enabled: {paymentSettings.goCardlessEnabled ? "Yes" : "No"}</p>
+                  <p>Default method: {paymentSettings.defaultMethod}</p>
+                  <p>Refund support: {paymentSettings.refundSupport ? "Enabled" : "Disabled"}</p>
+                </>
+              ) : (
+                <>
+                  <p>Payment: Pay on arrival</p>
+                  <p>Payment will be collected at the clinic.</p>
+                </>
+              )}
             </div>
           </div>
         </aside>

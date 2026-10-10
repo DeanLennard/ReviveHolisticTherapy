@@ -4,7 +4,7 @@ import { Breadcrumbs } from "@/components/breadcrumbs";
 import { PageHero } from "@/components/page-hero";
 import { SchemaScript } from "@/components/schema-script";
 import { SectionHeading } from "@/components/section-heading";
-import { getServicesFromDb, getSiteSettings } from "@/lib/content";
+import { getServicesFromDb } from "@/lib/content";
 import { mapService } from "@/lib/mappers";
 import { buildMetadata } from "@/lib/seo";
 
@@ -185,16 +185,9 @@ function PricingTable({
 }
 
 export default async function PriceListPage() {
-  const [serviceDocs, settings] = await Promise.all([getServicesFromDb(), getSiteSettings()]);
+  const serviceDocs = await getServicesFromDb();
   const services = serviceDocs.map(mapService);
   const serviceMap = new Map(services.map((service) => [service.slug, service] as const));
-
-  const paymentSettings = settings?.paymentSettings ?? {
-    stripeEnabled: true,
-    goCardlessEnabled: true,
-    defaultMethod: "Stripe",
-    refundSupport: true,
-  };
 
   const schema = [
     {
@@ -242,13 +235,10 @@ export default async function PriceListPage() {
           <p className="eyebrow">Payment options</p>
           <h2 className="mt-5 font-display text-3xl font-semibold">Pay your way</h2>
           <div className="mt-6 space-y-3 text-[color:var(--color-text-muted)]">
-            <p>Stripe enabled: {paymentSettings.stripeEnabled ? "Yes" : "No"}</p>
-            <p>GoCardless enabled: {paymentSettings.goCardlessEnabled ? "Yes" : "No"}</p>
-            <p>Default payment method: {paymentSettings.defaultMethod}</p>
-            <p>Refund support: {paymentSettings.refundSupport ? "Available where supported" : "Not currently enabled"}</p>
+            <p>Pay by card, bank transfer, or cash.</p>
           </div>
           <div className="mt-6 rounded-[1.5rem] bg-[color:var(--color-surface)] p-5 text-sm leading-7 text-[color:var(--color-text-muted)]">
-            Depending on the treatment, you may see options such as paying a deposit, paying in full online, or paying in clinic.
+            Payment is collected at the clinic unless a different arrangement has been agreed with your therapist.
           </div>
         </div>
       </section>
