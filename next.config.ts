@@ -5,6 +5,12 @@ const nextConfig: NextConfig = {
     root: __dirname,
   },
   images: {
+    localPatterns: [
+      {
+        pathname: "/icon.png",
+        search: "?v=20261010",
+      },
+    ],
     remotePatterns: [
       {
         protocol: "https",
