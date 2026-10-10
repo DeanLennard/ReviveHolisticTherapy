@@ -1,11 +1,8 @@
-type BookingLike = {
-  _id?: { toHexString(): string } | null;
-  customerName: string;
-  serviceTitle: string;
-  bookingDate: string;
-  bookingStart: string;
-  status: string;
-};
+"use client";
+
+import { useState } from "react";
+
+import { BookingDetailsModal, type AdminBookingDetails } from "@/components/admin/booking-details-modal";
 
 function buildMonthDays(referenceDate: Date) {
   const year = referenceDate.getFullYear();
@@ -29,9 +26,10 @@ export function BookingCalendar({
   bookings,
   monthLabel,
 }: {
-  bookings: BookingLike[];
+  bookings: AdminBookingDetails[];
   monthLabel: string;
 }) {
+  const [selectedBooking, setSelectedBooking] = useState<AdminBookingDetails | null>(null);
   const days = buildMonthDays(new Date());
 
   return (
@@ -59,10 +57,10 @@ export function BookingCalendar({
               <p className="text-sm font-semibold text-[color:var(--color-heading)]">{day.getDate()}</p>
               <div className="mt-2 space-y-1">
                 {dayBookings.slice(0, 3).map((booking) => (
-                  <div key={booking._id?.toHexString() ?? `${booking.customerName}-${booking.bookingStart}`} className="rounded-lg bg-white px-2 py-1 text-left text-xs text-[color:var(--color-heading)]">
+                  <button key={booking.id} type="button" onClick={() => setSelectedBooking(booking)} className="w-full rounded-lg bg-white px-2 py-1 text-left text-xs text-[color:var(--color-heading)] transition hover:bg-[#e7f0fb]">
                     <p className="font-semibold">{booking.bookingStart}</p>
                     <p className="truncate">{booking.customerName}</p>
-                  </div>
+                  </button>
                 ))}
                 {dayBookings.length > 3 ? <p className="text-xs text-[color:var(--color-text-muted)]">+{dayBookings.length - 3} more</p> : null}
               </div>
@@ -70,6 +68,7 @@ export function BookingCalendar({
           );
         })}
       </div>
+      <BookingDetailsModal booking={selectedBooking} onClose={() => setSelectedBooking(null)} />
     </div>
   );
 }

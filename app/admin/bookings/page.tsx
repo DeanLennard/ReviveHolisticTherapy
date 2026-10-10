@@ -94,6 +94,31 @@ export default async function AdminBookingsPage({ searchParams }: BookingsPagePr
   const totalPages = Math.max(1, Math.ceil(filteredBookings.length / pageSize));
   const page = Math.min(currentPage, totalPages);
   const paginatedBookings = filteredBookings.slice((page - 1) * pageSize, page * pageSize);
+  const scheduleBookings = filteredBookings.flatMap((booking) => {
+    const id = booking._id?.toHexString();
+    if (!id) return [];
+
+    return [{
+      id,
+      customerName: booking.customerName,
+      customerEmail: booking.customerEmail,
+      customerPhone: booking.customerPhone,
+      serviceTitle: booking.serviceTitle,
+      practitionerName: booking.practitionerName,
+      bookingDate: booking.bookingDate,
+      bookingStart: booking.bookingStart,
+      bookingEnd: booking.bookingEnd,
+      status: booking.status,
+      paymentStatus: booking.paymentStatus,
+      paymentProvider: booking.paymentProvider,
+      paymentReference: booking.paymentReference,
+      paymentMode: booking.paymentMode,
+      depositAmount: booking.depositAmount,
+      totalAmount: booking.totalAmount,
+      notes: booking.notes,
+      adminNotes: booking.adminNotes,
+    }];
+  });
   const selectedBooking = bookings.find((booking) => booking._id?.toHexString() === selectedBookingId) ?? null;
   const buildBookingsHref = (updates: Record<string, string | undefined>, hash = "") => {
     const keys = ["tab", "q", "status", "service", "date", "page", "edit"] as const;
@@ -192,8 +217,8 @@ export default async function AdminBookingsPage({ searchParams }: BookingsPagePr
 
         <AdminPanel title="Schedule views" description="Keep the filtered list, schedule summary, and month view together.">
           <div className="space-y-6">
-            <BookingSchedule bookings={filteredBookings} />
-            <BookingCalendar bookings={filteredBookings} monthLabel={currentMonthLabel} />
+            <BookingSchedule bookings={scheduleBookings} />
+            <BookingCalendar bookings={scheduleBookings} monthLabel={currentMonthLabel} />
           </div>
         </AdminPanel>
       </div>
