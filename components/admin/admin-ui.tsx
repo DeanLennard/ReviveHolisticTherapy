@@ -8,6 +8,7 @@ type AdminPageHeaderProps = {
 };
 
 type AdminPanelProps = {
+  id?: string;
   title: string;
   description?: string;
   action?: ReactNode;
@@ -37,9 +38,9 @@ export function AdminPageHeader({ eyebrow, title, description, action }: AdminPa
   );
 }
 
-export function AdminPanel({ title, description, action, children }: AdminPanelProps) {
+export function AdminPanel({ id, title, description, action, children }: AdminPanelProps) {
   return (
-    <section className="rounded-[2rem] border border-[color:var(--color-border)] bg-white p-6 shadow-[var(--shadow-soft)] sm:p-8">
+    <section id={id} className="rounded-[2rem] border border-[color:var(--color-border)] bg-white p-6 shadow-[var(--shadow-soft)] sm:p-8">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <h2 className="font-display text-2xl font-semibold text-[color:var(--color-heading)]">{title}</h2>
