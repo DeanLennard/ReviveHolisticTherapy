@@ -98,6 +98,26 @@ function applyTemplate(template: string, replacements: Record<string, string>) {
   return Object.entries(replacements).reduce((output, [key, value]) => output.replaceAll(`{{${key}}}`, value), template);
 }
 
+function formatAppointmentDate(dateKey: string) {
+  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(dateKey);
+  if (!match) {
+    return dateKey;
+  }
+
+  const year = Number(match[1]);
+  const month = Number(match[2]);
+  const day = Number(match[3]);
+  const monthName = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"][month - 1];
+
+  if (!monthName || day < 1 || day > 31) {
+    return dateKey;
+  }
+
+  const lastTwoDigits = day % 100;
+  const suffix = lastTwoDigits >= 11 && lastTwoDigits <= 13 ? "th" : ({ 1: "st", 2: "nd", 3: "rd" }[day % 10] ?? "th");
+  return `${day}${suffix} ${monthName} ${year}`;
+}
+
 function escapeHtml(value: string) {
   return value.replace(/[&<>"]/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[character] ?? character);
 }
@@ -257,11 +277,12 @@ export async function sendBookingConfirmationEmail(booking: BookingDocument, set
   const template =
     settings?.emailSettings?.bookingConfirmationTemplate ||
     "Hello {{customerName}},\n\nYour booking for {{serviceTitle}} on {{bookingDate}} at {{bookingStart}} has been received.\n\nReference: {{reference}}";
+  const bookingDate = formatAppointmentDate(booking.bookingDate);
 
   const text = applyTemplate(template, {
     customerName: booking.customerName,
     serviceTitle: booking.serviceTitle,
-    bookingDate: booking.bookingDate,
+    bookingDate,
     bookingStart: booking.bookingStart,
     reference: booking._id?.toHexString() ?? "Pending",
   });
@@ -276,7 +297,7 @@ export async function sendBookingConfirmationEmail(booking: BookingDocument, set
         title: "Your appointment is booked",
         intro: `Hello ${booking.customerName}, your booking has been received and is now with the clinic.`,
         content: text,
-        details: [["Treatment", booking.serviceTitle], ["Date", booking.bookingDate], ["Time", booking.bookingStart], ["Reference", booking._id?.toHexString() ?? "Pending"]],
+        details: [["Treatment", booking.serviceTitle], ["Date", bookingDate], ["Time", booking.bookingStart], ["Reference", booking._id?.toHexString() ?? "Pending"]],
         settings,
       }),
     },
@@ -333,13 +354,14 @@ export async function sendAdminEventNotification(event: string, booking: Booking
   const template =
     settings?.emailSettings?.adminNotificationTemplate ||
     "Event: {{event}}\nBooking: {{reference}}\nCustomer: {{customerName}}\nService: {{serviceTitle}}\nDate: {{bookingDate}} {{bookingStart}}";
+  const bookingDate = formatAppointmentDate(booking.bookingDate);
 
   const text = applyTemplate(template, {
     event,
     reference: booking._id?.toHexString() ?? "Pending",
     customerName: booking.customerName,
     serviceTitle: booking.serviceTitle,
-    bookingDate: booking.bookingDate,
+    bookingDate,
     bookingStart: booking.bookingStart,
   });
 
@@ -353,7 +375,7 @@ export async function sendAdminEventNotification(event: string, booking: Booking
         title: event,
         intro: "A booking event requires your awareness.",
         content: text,
-        details: [["Customer", booking.customerName], ["Treatment", booking.serviceTitle], ["Appointment", `${booking.bookingDate} at ${booking.bookingStart}`], ["Reference", booking._id?.toHexString() ?? "Pending"]],
+        details: [["Customer", booking.customerName], ["Treatment", booking.serviceTitle], ["Appointment", `${bookingDate} at ${booking.bookingStart}`], ["Reference", booking._id?.toHexString() ?? "Pending"]],
         settings,
       }),
     },
