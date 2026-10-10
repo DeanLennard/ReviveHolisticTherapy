@@ -97,6 +97,9 @@ const availabilityFormSchema = z.object({
 
 const bookingAdminEditSchema = z.object({
   bookingId: z.string().min(1),
+  customerName: z.string().min(2).trim(),
+  customerEmail: z.email().trim().toLowerCase(),
+  customerPhone: z.string().min(7).trim(),
   bookingDate: z.string().min(1),
   bookingStart: z.string().min(1),
   bookingEnd: z.string().min(1),
@@ -468,6 +471,9 @@ export async function updateBookingDetails(formData: FormData) {
   const admin = await requireAdminAccess();
   const parsed = bookingAdminEditSchema.safeParse({
     bookingId: String(formData.get("bookingId") ?? ""),
+    customerName: String(formData.get("customerName") ?? ""),
+    customerEmail: String(formData.get("customerEmail") ?? ""),
+    customerPhone: String(formData.get("customerPhone") ?? ""),
     bookingDate: String(formData.get("bookingDate") ?? ""),
     bookingStart: String(formData.get("bookingStart") ?? ""),
     bookingEnd: String(formData.get("bookingEnd") ?? ""),
@@ -518,6 +524,9 @@ export async function updateBookingDetails(formData: FormData) {
     { _id: booking._id },
     {
       $set: {
+        customerName: parsed.data.customerName,
+        customerEmail: parsed.data.customerEmail,
+        customerPhone: parsed.data.customerPhone,
         bookingDate: parsed.data.bookingDate,
         bookingStart: parsed.data.bookingStart,
         bookingEnd: parsed.data.bookingEnd,

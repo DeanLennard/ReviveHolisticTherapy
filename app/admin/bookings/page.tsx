@@ -290,7 +290,7 @@ export default async function AdminBookingsPage({ searchParams }: BookingsPagePr
 
       <AdminPanel id="edit-booking" title="Edit booking details" description="Select a booking from the list to reschedule it, update payment state, or add notes.">
         {selectedBooking ? (
-          <div className="rounded-[1.5rem] bg-[color:var(--color-surface)] p-5">
+          <div key={selectedBooking._id?.toHexString()} className="rounded-[1.5rem] bg-[color:var(--color-surface)] p-5">
             <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
               <div>
                 <p className="font-semibold text-[color:var(--color-heading)]">{selectedBooking.customerName} - {selectedBooking.serviceTitle}</p>
@@ -300,6 +300,9 @@ export default async function AdminBookingsPage({ searchParams }: BookingsPagePr
             </div>
             <form action={updateBookingDetails} className="mt-5 grid gap-3 lg:grid-cols-4">
               <input type="hidden" name="bookingId" value={selectedBooking._id?.toHexString()} />
+              <input name="customerName" defaultValue={selectedBooking.customerName} placeholder="Customer name" className="rounded-2xl border border-[color:var(--color-border)] bg-white px-3 py-2 text-sm" />
+              <input name="customerEmail" type="email" defaultValue={selectedBooking.customerEmail} placeholder="Customer email" className="rounded-2xl border border-[color:var(--color-border)] bg-white px-3 py-2 text-sm" />
+              <input name="customerPhone" type="tel" defaultValue={selectedBooking.customerPhone} placeholder="Customer telephone" className="rounded-2xl border border-[color:var(--color-border)] bg-white px-3 py-2 text-sm" />
               <input name="bookingDate" type="date" defaultValue={selectedBooking.bookingDate} className="rounded-2xl border border-[color:var(--color-border)] bg-white px-3 py-2 text-sm" />
               <input name="bookingStart" type="time" defaultValue={selectedBooking.bookingStart} className="rounded-2xl border border-[color:var(--color-border)] bg-white px-3 py-2 text-sm" />
               <input name="bookingEnd" type="time" defaultValue={selectedBooking.bookingEnd} className="rounded-2xl border border-[color:var(--color-border)] bg-white px-3 py-2 text-sm" />
