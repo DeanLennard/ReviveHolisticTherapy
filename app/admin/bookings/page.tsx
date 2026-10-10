@@ -140,38 +140,6 @@ export default async function AdminBookingsPage({ searchParams }: BookingsPagePr
         />
       </AdminStatGrid>
 
-      <AdminPanel title="Find a booking" description="Search by customer name, email, telephone number, booking reference, service, or payment reference.">
-        <form className="grid gap-3 rounded-[1.5rem] bg-[color:var(--color-surface)] p-4 md:grid-cols-2 xl:grid-cols-5">
-          <input type="hidden" name="tab" value={selectedTab} />
-          <input name="q" defaultValue={searchQuery} placeholder="Search bookings" className="rounded-2xl border border-[color:var(--color-border)] bg-white px-3 py-2 text-sm xl:col-span-2" />
-          <select name="status" defaultValue={selectedStatus} className="rounded-2xl border border-[color:var(--color-border)] bg-white px-3 py-2 text-sm">
-            <option value="">All statuses</option>
-            {["pending", "confirmed", "paid", "deposit paid", "cancelled", "completed", "no show", "refunded"].map((status) => (
-              <option key={status} value={status}>
-                {status}
-              </option>
-            ))}
-          </select>
-          <select name="service" defaultValue={selectedService} className="rounded-2xl border border-[color:var(--color-border)] bg-white px-3 py-2 text-sm">
-            <option value="">All services</option>
-            {services.map((service) => (
-              <option key={service._id?.toHexString()} value={service.title}>
-                {service.title}
-              </option>
-            ))}
-          </select>
-          <input name="date" type="date" defaultValue={selectedDate} className="rounded-2xl border border-[color:var(--color-border)] bg-white px-3 py-2 text-sm" />
-          <div className="flex gap-2 xl:col-span-2">
-            <button type="submit" className="rounded-full bg-[color:var(--color-accent)] px-4 py-2 text-sm font-semibold text-white">
-              Filter
-            </button>
-            <Link href="/admin/bookings" className="rounded-full border border-[color:var(--color-border)] bg-white px-4 py-2 text-sm font-semibold text-[color:var(--color-heading)]">
-              Reset
-            </Link>
-          </div>
-        </form>
-      </AdminPanel>
-
       <div className="grid gap-6">
         <AdminPanel title="Create manual booking" description="Add a booking directly from admin when a client books by phone or message.">
           <form action={createManualBooking} className="grid gap-3">
@@ -246,6 +214,30 @@ export default async function AdminBookingsPage({ searchParams }: BookingsPagePr
             </Link>
           ))}
         </div>
+        <form className="mb-6 grid gap-3 rounded-[1.5rem] bg-[color:var(--color-surface)] p-4 md:grid-cols-2 xl:grid-cols-5">
+          <input type="hidden" name="tab" value={selectedTab} />
+          <label className="xl:col-span-2">
+            <span className="sr-only">Search bookings</span>
+            <input name="q" defaultValue={searchQuery} placeholder="Search name, email, telephone, or reference" className="w-full rounded-2xl border border-[color:var(--color-border)] bg-white px-3 py-2 text-sm" />
+          </label>
+          <select name="status" defaultValue={selectedStatus} aria-label="Booking status" className="rounded-2xl border border-[color:var(--color-border)] bg-white px-3 py-2 text-sm">
+            <option value="">All statuses</option>
+            {["pending", "confirmed", "paid", "deposit paid", "cancelled", "completed", "no show", "refunded"].map((status) => (
+              <option key={status} value={status}>{status}</option>
+            ))}
+          </select>
+          <select name="service" defaultValue={selectedService} aria-label="Service" className="rounded-2xl border border-[color:var(--color-border)] bg-white px-3 py-2 text-sm">
+            <option value="">All services</option>
+            {services.map((service) => (
+              <option key={service._id?.toHexString()} value={service.title}>{service.title}</option>
+            ))}
+          </select>
+          <input name="date" type="date" defaultValue={selectedDate} aria-label="Booking date" className="rounded-2xl border border-[color:var(--color-border)] bg-white px-3 py-2 text-sm" />
+          <div className="flex gap-2 xl:col-span-2">
+            <button type="submit" className="rounded-full bg-[color:var(--color-accent)] px-4 py-2 text-sm font-semibold text-white">Search</button>
+            <Link href="/admin/bookings" className="rounded-full border border-[color:var(--color-border)] bg-white px-4 py-2 text-sm font-semibold text-[color:var(--color-heading)]">Reset</Link>
+          </div>
+        </form>
         <div className="overflow-x-auto">
           <table className="min-w-full text-left text-sm">
             <caption className="sr-only">Booking list with customer, service, date, status, and payment provider</caption>
@@ -313,27 +305,36 @@ export default async function AdminBookingsPage({ searchParams }: BookingsPagePr
               <input name="bookingEnd" type="time" defaultValue={selectedBooking.bookingEnd} className="rounded-2xl border border-[color:var(--color-border)] bg-white px-3 py-2 text-sm" />
               <input name="practitionerName" defaultValue={selectedBooking.practitionerName ?? ""} placeholder="Practitioner" className="rounded-2xl border border-[color:var(--color-border)] bg-white px-3 py-2 text-sm" />
               <input name="paymentReference" defaultValue={selectedBooking.paymentReference ?? ""} placeholder="Payment reference" className="rounded-2xl border border-[color:var(--color-border)] bg-white px-3 py-2 text-sm" />
-              <select name="status" defaultValue={selectedBooking.status} className="rounded-2xl border border-[color:var(--color-border)] bg-white px-3 py-2 text-sm">
+              <label className="text-sm font-medium text-[color:var(--color-heading)]">
+                Booking status
+                <select name="status" defaultValue={selectedBooking.status} className="mt-1 w-full rounded-2xl border border-[color:var(--color-border)] bg-white px-3 py-2 text-sm">
                     {["pending", "confirmed", "paid", "deposit paid", "cancelled", "completed", "no show", "refunded"].map((status) => (
                       <option key={status} value={status}>
                         {status}
                       </option>
                     ))}
-              </select>
-              <select name="paymentStatus" defaultValue={selectedBooking.paymentStatus} className="rounded-2xl border border-[color:var(--color-border)] bg-white px-3 py-2 text-sm">
+                </select>
+              </label>
+              <label className="text-sm font-medium text-[color:var(--color-heading)]">
+                Payment status
+                <select name="paymentStatus" defaultValue={selectedBooking.paymentStatus} className="mt-1 w-full rounded-2xl border border-[color:var(--color-border)] bg-white px-3 py-2 text-sm">
                     {["unpaid", "pending", "deposit paid", "paid", "failed", "refunded", "partially refunded"].map((status) => (
                       <option key={status} value={status}>
                         {status}
                       </option>
                     ))}
-              </select>
-              <select name="paymentProvider" defaultValue={selectedBooking.paymentProvider} className="rounded-2xl border border-[color:var(--color-border)] bg-white px-3 py-2 text-sm">
+                </select>
+              </label>
+              <label className="text-sm font-medium text-[color:var(--color-heading)]">
+                Payment method
+                <select name="paymentProvider" defaultValue={selectedBooking.paymentProvider} className="mt-1 w-full rounded-2xl border border-[color:var(--color-border)] bg-white px-3 py-2 text-sm">
                     {["stripe", "gocardless", "clinic", "none"].map((provider) => (
                       <option key={provider} value={provider}>
                         {provider}
                       </option>
                     ))}
-              </select>
+                </select>
+              </label>
               <textarea name="notes" defaultValue={selectedBooking.notes} placeholder="Client notes" className="rounded-2xl border border-[color:var(--color-border)] bg-white px-3 py-2 text-sm lg:col-span-2" />
               <textarea name="adminNotes" defaultValue={selectedBooking.adminNotes} placeholder="Admin notes" className="rounded-2xl border border-[color:var(--color-border)] bg-white px-3 py-2 text-sm lg:col-span-2" />
               <div className="lg:col-span-4">
