@@ -8,6 +8,7 @@ import { getCollections } from "@/lib/collections";
 import { writeAuditLog } from "@/lib/audit-log";
 import { signOut } from "@/lib/auth";
 import { getSiteSettings } from "@/lib/content";
+import { env } from "@/lib/env";
 import { sendMagicLinkEmail } from "@/lib/mailer";
 import { magicLinkRequestSchema } from "@/lib/validators";
 
@@ -35,8 +36,8 @@ export async function loginAction(_state: AuthActionState, formData: FormData): 
     const rawToken = crypto.randomBytes(24).toString("hex");
     const tokenHash = crypto.createHash("sha256").update(rawToken).digest("hex");
     const expiresAt = new Date(Date.now() + 1000 * 60 * 30);
-    const appUrl = process.env.APP_URL || "http://localhost:3000";
-    const magicUrl = `${appUrl}/api/auth/magic-link?token=${rawToken}`;
+    const magicUrl = new URL("/api/auth/magic-link", env.APP_URL);
+    magicUrl.searchParams.set("token", rawToken);
 
     await passwordResetTokens.insertOne({
       userId: user._id,
@@ -50,7 +51,7 @@ export async function loginAction(_state: AuthActionState, formData: FormData): 
 
     await sendMagicLinkEmail({
       recipientEmail: user.email,
-      magicUrl,
+      magicUrl: magicUrl.toString(),
     }, settings);
 
     await writeAuditLog({
