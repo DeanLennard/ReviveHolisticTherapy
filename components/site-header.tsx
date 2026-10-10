@@ -71,6 +71,7 @@ const megaNav: MegaItem[] = [
           { href: "/facials/rose-facial", label: "Rose Facial" },
           { href: "/facials/neroli-facial", label: "Neroli Facial" },
           { href: "/facials/mini-facial", label: "Mini Facial" },
+          { href: "/facials/facial-reflexology", label: "Facial Reflexology", badge: "New" },
         ],
       },
     ],
@@ -105,6 +106,8 @@ const megaNav: MegaItem[] = [
           { href: "/womens-wellbeing/reiki", label: "Reiki" },
           { href: "/holistic-therapies/crystal-therapy", label: "Crystal Therapy" },
           { href: "/holistic-therapies/hopi-ear-candles", label: "Hopi Ear Candles" },
+          { href: "/holistic-therapies/auriculotherapy", label: "Auriculotherapy", badge: "New" },
+          { href: "/holistic-therapies/acupuncture", label: "Acupuncture", badge: "Coming soon" },
         ],
       },
     ],
@@ -156,7 +159,7 @@ export function SiteHeader() {
           <p className="hidden min-w-0 max-w-[30rem] flex-1 leading-6 lg:block xl:max-w-[42rem]">{site.businessSummary}</p>
           <div className="flex shrink-0 flex-wrap items-center gap-3 lg:flex-nowrap lg:justify-end">
             <Link
-              className="hidden rounded-full bg-[color:var(--color-accent)] px-4 py-2 text-sm font-semibold text-white shadow-[0_18px_36px_-24px_rgba(43,163,172,0.75)] transition hover:-translate-y-0.5 hover:bg-[color:var(--color-accent-strong)] lg:inline-flex"
+              className="hidden rounded-full bg-[color:var(--color-accent)] px-4 py-2 text-sm font-semibold text-white shadow-[0_18px_36px_-24px_rgba(13,51,113,0.75)] transition hover:-translate-y-0.5 hover:bg-[color:var(--color-accent-strong)] lg:inline-flex"
               href="/portal/login"
             >
               Portal
@@ -295,7 +298,7 @@ export function SiteHeader() {
         <div className="hidden items-center gap-3 lg:flex">
           <Link
             href="/booking"
-            className="rounded-full bg-[color:var(--color-accent)] px-5 py-2.5 text-sm font-semibold text-white shadow-[0_24px_45px_-28px_rgba(43,163,172,0.8)] transition hover:-translate-y-0.5 hover:bg-[color:var(--color-accent-strong)]"
+            className="rounded-full bg-[color:var(--color-accent)] px-5 py-2.5 text-sm font-semibold text-white shadow-[0_24px_45px_-28px_rgba(13,51,113,0.8)] transition hover:-translate-y-0.5 hover:bg-[color:var(--color-accent-strong)]"
           >
             Book Now
           </Link>

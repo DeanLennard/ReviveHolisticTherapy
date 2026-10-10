@@ -170,12 +170,12 @@ export function buildSeedAdmin(passwordHash: string): UserDocument {
 
 export function buildSeedAvailability(): AvailabilityDocument[] {
   return [
-    { practitionerName: "Primary therapist", dayOfWeek: 1, startTime: "09:00", endTime: "18:00", slotInterval: 15, bufferBefore: 0, bufferAfter: 15, isActive: true, createdAt: now, updatedAt: now },
-    { practitionerName: "Primary therapist", dayOfWeek: 2, startTime: "09:00", endTime: "19:00", slotInterval: 15, bufferBefore: 0, bufferAfter: 15, isActive: true, createdAt: now, updatedAt: now },
-    { practitionerName: "Primary therapist", dayOfWeek: 3, startTime: "09:00", endTime: "19:00", slotInterval: 15, bufferBefore: 0, bufferAfter: 15, isActive: true, createdAt: now, updatedAt: now },
-    { practitionerName: "Primary therapist", dayOfWeek: 4, startTime: "09:00", endTime: "20:00", slotInterval: 15, bufferBefore: 0, bufferAfter: 15, isActive: true, createdAt: now, updatedAt: now },
+    { practitionerName: "Primary therapist", dayOfWeek: 1, startTime: "18:00", endTime: "21:00", slotInterval: 15, bufferBefore: 0, bufferAfter: 15, isActive: true, createdAt: now, updatedAt: now },
+    { practitionerName: "Primary therapist", dayOfWeek: 2, startTime: "09:00", endTime: "17:00", slotInterval: 15, bufferBefore: 0, bufferAfter: 15, isActive: true, createdAt: now, updatedAt: now },
+    { practitionerName: "Primary therapist", dayOfWeek: 3, startTime: "09:00", endTime: "21:00", slotInterval: 15, bufferBefore: 0, bufferAfter: 15, isActive: true, createdAt: now, updatedAt: now },
+    { practitionerName: "Primary therapist", dayOfWeek: 4, startTime: "09:00", endTime: "16:00", slotInterval: 15, bufferBefore: 0, bufferAfter: 15, isActive: true, createdAt: now, updatedAt: now },
     { practitionerName: "Primary therapist", dayOfWeek: 5, startTime: "09:00", endTime: "18:00", slotInterval: 15, bufferBefore: 0, bufferAfter: 15, isActive: true, createdAt: now, updatedAt: now },
-    { practitionerName: "Primary therapist", dayOfWeek: 6, startTime: "09:00", endTime: "15:00", slotInterval: 15, bufferBefore: 0, bufferAfter: 15, isActive: true, createdAt: now, updatedAt: now },
+    { practitionerName: "Primary therapist", dayOfWeek: 6, startTime: "08:00", endTime: "13:00", slotInterval: 15, bufferBefore: 0, bufferAfter: 15, isActive: true, createdAt: now, updatedAt: now },
   ];
 }
 

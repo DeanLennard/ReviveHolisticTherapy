@@ -44,6 +44,12 @@ const facialTreatments = [
       "A combined treatment that includes both facial care and massage elements, helping to refresh your skin while easing tension in the upper body.",
     href: "/facials/recharge-facial",
   },
+  {
+    title: "Facial Reflexology",
+    description:
+      "A gentle face and head-focused reflexology treatment for a calm, restorative wellbeing experience.",
+    href: "/facials/facial-reflexology",
+  },
 ];
 
 const benefits = [
@@ -78,7 +84,7 @@ export default function FacialsPage() {
       name: "Facial Treatments",
       description:
         "Facials in Cannock including Gua Sha, Rose, Neroli, mini facials and recharge facials for skin refreshment and relaxation.",
-      url: "https://reviveholistictherapies.com/facials",
+      url: "https://new.reviveholistictherapies.com/facials",
       about: facialTreatments.map((item) => ({
         "@type": "Service",
         name: item.title,
@@ -195,17 +201,17 @@ export default function FacialsPage() {
         </div>
       </section>
 
-      <section className="mt-24 rounded-[2.1rem] bg-[linear-gradient(180deg,#2b4348_0%,#1e3135_100%)] px-8 py-10 text-white shadow-[0_30px_75px_-45px_rgba(15,25,28,0.6)]">
-        <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#e3f4f5]">Facials in Cannock</p>
+      <section className="mt-24 rounded-[2.1rem] bg-[linear-gradient(180deg,#0D3371_0%,#061D43_100%)] px-8 py-10 text-white shadow-[0_30px_75px_-45px_rgba(15,25,28,0.6)]">
+        <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#DCE8FA]">Facials in Cannock</p>
         <h2 className="mt-5 font-display text-4xl font-semibold leading-[1.08] text-white">Refresh your skin and relax</h2>
-        <p className="mt-6 max-w-3xl text-lg leading-8 text-[#f2fbfc]">
+        <p className="mt-6 max-w-3xl text-lg leading-8 text-[#EEF4FD]">
           Whether you are looking to improve your skin or simply enjoy a relaxing treatment, our facials are designed to help you feel your best. Book your appointment today.
         </p>
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-          <Link href="/booking" className="rounded-full bg-white px-6 py-3 text-center font-semibold text-[#162124]">
+          <Link href="/booking" className="rounded-full bg-white px-6 py-3 text-center font-semibold text-[#0A234D]">
             Book Now
           </Link>
-          <Link href="/contact" className="rounded-full border border-[#c4e5e7] bg-[#345157] px-6 py-3 text-center font-semibold text-white">
+          <Link href="/contact" className="rounded-full border border-[#AFC8ED] bg-[#174A91] px-6 py-3 text-center font-semibold text-white">
             Contact Us
           </Link>
         </div>
@@ -224,6 +230,7 @@ export default function FacialsPage() {
             { href: "/facials/neroli-facial", label: "Neroli Facial" },
             { href: "/facials/mini-facial", label: "Mini Facial" },
             { href: "/facials/recharge-facial", label: "Recharge Facial" },
+            { href: "/facials/facial-reflexology", label: "Facial Reflexology" },
             { href: "/womens-wellbeing", label: "Women's Wellbeing" },
             { href: "/massage-treatments", label: "Massage Treatments" },
             { href: "/price-list", label: "Price List" },
@@ -260,7 +267,7 @@ export default function FacialsPage() {
       <div className="fixed inset-x-0 bottom-4 z-40 px-4 sm:hidden">
         <Link
           href="/booking"
-          className="block rounded-full bg-[color:var(--color-accent)] px-5 py-4 text-center font-semibold text-white shadow-[0_20px_45px_-25px_rgba(43,163,172,0.85)]"
+          className="block rounded-full bg-[color:var(--color-accent)] px-5 py-4 text-center font-semibold text-white shadow-[0_20px_45px_-25px_rgba(13,51,113,0.85)]"
         >
           Book a Facial
         </Link>

@@ -238,17 +238,17 @@ export default function OncologyMassagePage() {
         </div>
       </section>
 
-      <section className="mt-24 rounded-[2.1rem] bg-[linear-gradient(180deg,#2b4348_0%,#1e3135_100%)] px-8 py-10 text-white shadow-[0_30px_75px_-45px_rgba(15,25,28,0.6)]">
-        <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#e3f4f5]">Supportive care in Cannock</p>
+      <section className="mt-24 rounded-[2.1rem] bg-[linear-gradient(180deg,#0D3371_0%,#061D43_100%)] px-8 py-10 text-white shadow-[0_30px_75px_-45px_rgba(15,25,28,0.6)]">
+        <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#DCE8FA]">Supportive care in Cannock</p>
         <h2 className="mt-5 font-display text-4xl font-semibold leading-[1.08] text-white">We&apos;re here to support you</h2>
-        <p className="mt-6 max-w-3xl text-lg leading-8 text-[#f2fbfc]">
+        <p className="mt-6 max-w-3xl text-lg leading-8 text-[#EEF4FD]">
           If you would like to know more or book a treatment, please get in touch. We are happy to discuss your needs and help you feel comfortable before your appointment.
         </p>
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-          <Link href="/contact" className="rounded-full bg-white px-6 py-3 text-center font-semibold text-[#162124]">
+          <Link href="/contact" className="rounded-full bg-white px-6 py-3 text-center font-semibold text-[#0A234D]">
             Contact Us
           </Link>
-          <Link href="/booking" className="rounded-full border border-[#c4e5e7] bg-[#345157] px-6 py-3 text-center font-semibold text-white">
+          <Link href="/booking" className="rounded-full border border-[#AFC8ED] bg-[#174A91] px-6 py-3 text-center font-semibold text-white">
             Book Now
           </Link>
         </div>
@@ -273,7 +273,7 @@ export default function OncologyMassagePage() {
       <div className="fixed inset-x-0 bottom-4 z-40 px-4 sm:hidden">
         <Link
           href="/contact"
-          className="block rounded-full bg-[color:var(--color-accent)] px-5 py-4 text-center font-semibold text-white shadow-[0_20px_45px_-25px_rgba(43,163,172,0.85)]"
+          className="block rounded-full bg-[color:var(--color-accent)] px-5 py-4 text-center font-semibold text-white shadow-[0_20px_45px_-25px_rgba(13,51,113,0.85)]"
         >
           Enquire or Book
         </Link>

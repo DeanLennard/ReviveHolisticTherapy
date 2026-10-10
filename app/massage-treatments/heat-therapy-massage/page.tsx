@@ -234,19 +234,19 @@ export default function HeatTherapyMassagePage() {
         </div>
       </section>
 
-      <section className="mt-24 rounded-[2.1rem] bg-[linear-gradient(180deg,#2b4348_0%,#1e3135_100%)] px-8 py-10 text-white shadow-[0_30px_75px_-45px_rgba(15,25,28,0.6)]">
-        <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#e3f4f5]">Book your heat therapy massage</p>
+      <section className="mt-24 rounded-[2.1rem] bg-[linear-gradient(180deg,#0D3371_0%,#061D43_100%)] px-8 py-10 text-white shadow-[0_30px_75px_-45px_rgba(15,25,28,0.6)]">
+        <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#DCE8FA]">Book your heat therapy massage</p>
         <h2 className="mt-5 font-display text-4xl font-semibold leading-[1.08] text-white">
           Experience deep relaxation with heat therapy massage
         </h2>
-        <p className="mt-6 max-w-3xl text-lg leading-8 text-[#f2fbfc]">
+        <p className="mt-6 max-w-3xl text-lg leading-8 text-[#EEF4FD]">
           If you are ready to relax, unwind and ease tension, explore our heat therapy treatments and book your appointment today.
         </p>
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-          <Link href="/booking" className="rounded-full bg-white px-6 py-3 text-center font-semibold text-[#162124]">
+          <Link href="/booking" className="rounded-full bg-white px-6 py-3 text-center font-semibold text-[#0A234D]">
             Book Now
           </Link>
-          <Link href="/massage-treatments" className="rounded-full border border-[#c4e5e7] bg-[#345157] px-6 py-3 text-center font-semibold text-white">
+          <Link href="/massage-treatments" className="rounded-full border border-[#AFC8ED] bg-[#174A91] px-6 py-3 text-center font-semibold text-white">
             View Treatments
           </Link>
         </div>
@@ -270,7 +270,7 @@ export default function HeatTherapyMassagePage() {
 
       <Link
         href="/booking"
-        className="fixed inset-x-4 bottom-4 z-40 rounded-full bg-[color:var(--color-accent)] px-6 py-4 text-center font-semibold text-white shadow-[0_20px_45px_-20px_rgba(43,163,172,0.75)] sm:hidden"
+        className="fixed inset-x-4 bottom-4 z-40 rounded-full bg-[color:var(--color-accent)] px-6 py-4 text-center font-semibold text-white shadow-[0_20px_45px_-20px_rgba(13,51,113,0.75)] sm:hidden"
       >
         Book Heat Therapy Massage
       </Link>

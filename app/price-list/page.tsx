@@ -24,46 +24,48 @@ type PriceRow = {
 };
 
 const massageRows: PriceRow[] = [
-  { name: "Deep Tissue Massage", duration: "60 min / 90 min", price: "£45 / £60", href: "/massage-treatments/deep-tissue-massage", slug: "deep-tissue-massage" },
-  { name: "Remedial Massage", duration: "60 min / 90 min", price: "£45 / £60", href: "/massage-treatments/remedial-massage", slug: "remedial-massage" },
-  { name: "Aromatherapy Massage", duration: "60 min / 90 min", price: "£45 / £60", href: "/massage-treatments/aromatherapy-massage", slug: "aromatherapy-massage" },
-  { name: "Indian Head Massage", duration: "30 min / 60 min", price: "£30 / £45", href: "/massage-treatments/indian-head-massage", slug: "indian-head-massage" },
-  { name: "Heat Therapy Massage", duration: "60 min / 90 min", price: "£45 / £60", href: "/massage-treatments/heat-therapy-massage", slug: "heat-therapy-massage" },
-  { name: "Aqua Massage", duration: "60 min / 90 min", price: "£45 / £60", href: "/massage-treatments/aqua-massage", slug: "aqua-massage" },
-  { name: "Hot Stone Massage", duration: "60 min / 90 min", price: "£45 / £60", href: "/massage-treatments/hot-stone-massage", slug: "hot-stone-massage" },
-  { name: "Warm Bamboo Massage", duration: "60 min / 90 min", price: "£45 / £60", href: "/massage-treatments/warm-bamboo-massage", slug: "warm-bamboo-massage" },
-  { name: "Lomi Lomi Massage", duration: "60 min / 90 min", price: "£45 / £60", href: "/massage-treatments/lomi-lomi-massage", slug: "lomi-lomi-massage" },
+  { name: "Deep Tissue Massage", duration: "60 min / 90 min / 120 min", price: "£60 / £75 / £95", href: "/massage-treatments/deep-tissue-massage", slug: "deep-tissue-massage" },
+  { name: "Remedial Massage", duration: "60 min / 90 min / 120 min", price: "£60 / £75 / £95", href: "/massage-treatments/remedial-massage", slug: "remedial-massage" },
+  { name: "Aromatherapy Massage", duration: "60 min / 90 min / 120 min", price: "£60 / £75 / £95", href: "/massage-treatments/aromatherapy-massage", slug: "aromatherapy-massage" },
+  { name: "Indian Head Massage", duration: "30 min / 60 min", price: "£30 / £60", href: "/massage-treatments/indian-head-massage", slug: "indian-head-massage" },
+  { name: "Heat Therapy Massage", duration: "60 min / 90 min / 120 min", price: "£60 / £75 / £95", href: "/massage-treatments/heat-therapy-massage", slug: "heat-therapy-massage" },
+  { name: "Aqua Massage", duration: "60 min / 90 min / 120 min", price: "£60 / £75 / £95", href: "/massage-treatments/aqua-massage", slug: "aqua-massage" },
+  { name: "Hot Stone Massage", duration: "60 min / 90 min / 120 min", price: "£60 / £75 / £95", href: "/massage-treatments/hot-stone-massage", slug: "hot-stone-massage" },
+  { name: "Warm Bamboo Massage", duration: "60 min / 90 min / 120 min", price: "£60 / £75 / £95", href: "/massage-treatments/warm-bamboo-massage", slug: "warm-bamboo-massage" },
+  { name: "Lomi Lomi Massage", duration: "60 min / 90 min / 120 min", price: "£60 / £75 / £95", href: "/massage-treatments/lomi-lomi-massage", slug: "lomi-lomi-massage" },
 ];
 
 const mensRows: PriceRow[] = [
-  { name: "De-Stress Body Massage", duration: "60 min / 90 min", price: "£45 / £60", href: "/mens-wellbeing/de-stress-body-massage", slug: "de-stress-body-massage" },
-  { name: "Deep Tissue Massage", duration: "60 min / 90 min", price: "£45 / £60", href: "/massage-treatments/deep-tissue-massage", slug: "deep-tissue-massage" },
-  { name: "Recharge Facial", duration: "60 min", price: "£45", href: "/mens-wellbeing/recharge-facial", slug: "recharge-facial" },
-  { name: "Andropause Treatment", duration: "60 min", price: "£45", href: "/mens-wellbeing/andropause-treatment", slug: "andropause-treatment" },
+  { name: "De-Stress Body Massage", duration: "60 min / 90 min / 120 min", price: "£60 / £75 / £95", href: "/mens-wellbeing/de-stress-body-massage", slug: "de-stress-body-massage" },
+  { name: "Deep Tissue Massage", duration: "60 min / 90 min / 120 min", price: "£60 / £75 / £95", href: "/massage-treatments/deep-tissue-massage", slug: "deep-tissue-massage" },
+  { name: "Recharge Facial", duration: "60 min", price: "£60", href: "/mens-wellbeing/recharge-facial", slug: "recharge-facial" },
+  { name: "Andropause Treatment", duration: "60 min", price: "£60", href: "/mens-wellbeing/andropause-treatment", slug: "andropause-treatment" },
 ];
 
 const womensRows: PriceRow[] = [
-  { name: "Pregnancy Massage", duration: "60 min", price: "£45", href: "/womens-wellbeing/pregnancy-massage", slug: "pregnancy-massage" },
-  { name: "Peri / Menopause Massage", duration: "60 min / 90 min", price: "£45 / £60", href: "/womens-wellbeing/peri-menopause-massage", slug: "peri-menopause-massage" },
-  { name: "Oncology Massage", duration: "60 min", price: "£45", href: "/womens-wellbeing/oncology-massage", slug: "oncology-massage" },
-  { name: "Reiki", duration: "60 min", price: "£45", href: "/womens-wellbeing/reiki", slug: "reiki" },
+  { name: "Pregnancy Massage", duration: "60 min", price: "£60", href: "/womens-wellbeing/pregnancy-massage", slug: "pregnancy-massage" },
+  { name: "Peri / Menopause Massage", duration: "60 min / 90 min / 120 min", price: "£60 / £75 / £95", href: "/womens-wellbeing/peri-menopause-massage", slug: "peri-menopause-massage" },
+  { name: "Oncology Massage", duration: "60 min", price: "£60", href: "/womens-wellbeing/oncology-massage", slug: "oncology-massage" },
+  { name: "Reiki", duration: "60 min", price: "£60", href: "/womens-wellbeing/reiki", slug: "reiki" },
 ];
 
 const reflexologyRows: PriceRow[] = [
-  { name: "Reflexology Treatment", duration: "45 min", price: "£40", href: "/reflexology", slug: "reflexology" },
+  { name: "Foot Reflexology", duration: "45 min", price: "£45", href: "/reflexology", slug: "reflexology" },
 ];
 
 const facialRows: PriceRow[] = [
-  { name: "Gua Sha Facial", duration: "60 min", price: "£45", href: "/facials/gua-sha-facial", slug: "gua-sha-facial" },
-  { name: "Rose Facial", duration: "60 min", price: "£45", href: "/facials/rose-facial", slug: "rose-facial" },
-  { name: "Neroli Facial", duration: "60 min", price: "£45", href: "/facials/neroli-facial", slug: "neroli-facial" },
+  { name: "Gua Sha Facial", duration: "60 min", price: "£60", href: "/facials/gua-sha-facial", slug: "gua-sha-facial" },
+  { name: "Rose Facial", duration: "60 min", price: "£60", href: "/facials/rose-facial", slug: "rose-facial" },
+  { name: "Neroli Facial", duration: "60 min", price: "£60", href: "/facials/neroli-facial", slug: "neroli-facial" },
   { name: "Mini Facial", duration: "30 min", price: "£30", href: "/facials/mini-facial", slug: "mini-facial" },
-  { name: "Recharge Facial", duration: "60 min", price: "£45", href: "/facials/recharge-facial", slug: "recharge-facial" },
+  { name: "Recharge Facial", duration: "60 min", price: "£60", href: "/facials/recharge-facial", slug: "recharge-facial" },
+  { name: "Facial Reflexology", duration: "Please enquire", price: "Coming soon", href: "/facials/facial-reflexology" },
 ];
 
 const holisticRows: PriceRow[] = [
-  { name: "Crystal Therapy", duration: "60 min", price: "£45", href: "/holistic-therapies/crystal-therapy", slug: "crystal-therapy" },
-  { name: "Hopi Ear Candles", duration: "45 min", price: "£35", href: "/holistic-therapies/hopi-ear-candles", slug: "hopi-ear-candles" },
+  { name: "Crystal Therapy", duration: "60 min", price: "£60", href: "/holistic-therapies/crystal-therapy", slug: "crystal-therapy" },
+  { name: "Hopi Ear Candles", duration: "45 min", price: "£45", href: "/holistic-therapies/hopi-ear-candles", slug: "hopi-ear-candles" },
+  { name: "Auriculotherapy", duration: "Please enquire", price: "Coming soon", href: "/holistic-therapies/auriculotherapy" },
 ];
 
 function PaymentBadge({
@@ -201,7 +203,7 @@ export default async function PriceListPage() {
       name: "Treatment Prices",
       description:
         "Massage, reflexology, facial and holistic therapy prices in Cannock for Revive Holistic Therapies.",
-      url: "https://reviveholistictherapies.com/price-list",
+      url: "https://new.reviveholistictherapies.com/price-list",
     },
   ];
 
@@ -212,7 +214,7 @@ export default async function PriceListPage() {
       <PageHero
         eyebrow="Price list"
         title="Massage and Treatment Prices in Cannock"
-        description="Explore our range of treatments and transparent pricing. All treatments at Revive Holistic Therapies are tailored to your needs, ensuring you get the most from your session."
+        description="Pricing is really easy: choose the time that suits you, then choose the treatment that feels right."
       />
 
       <section className="mt-10 flex flex-wrap gap-3">
@@ -226,10 +228,10 @@ export default async function PriceListPage() {
           <SectionHeading
             eyebrow="Simple, clear pricing"
             title="Simple, clear pricing"
-            description="We believe in keeping pricing straightforward and transparent."
+            description="It is really easy: £60 for 60 minutes, £75 for 90 minutes and £95 for 120 minutes."
           />
           <p className="mt-6 text-lg leading-8 text-[color:var(--color-text-muted)]">
-            Treatments are available in different durations, allowing you to choose what works best for you.
+            Our standard treatment pricing is based on time, so you can choose the session length that works best for you.
           </p>
           <p className="mt-5 text-lg leading-8 text-[color:var(--color-text-muted)]">
             If you are unsure which treatment is right for you, feel free to get in touch and we will be happy to guide you.
@@ -334,15 +336,15 @@ export default async function PriceListPage() {
         </div>
       </section>
 
-      <section className="mt-24 rounded-[2.1rem] bg-[linear-gradient(180deg,#2b4348_0%,#1e3135_100%)] px-8 py-10 text-white shadow-[0_30px_75px_-45px_rgba(15,25,28,0.6)]">
-        <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#e3f4f5]">Ready to book?</p>
+      <section className="mt-24 rounded-[2.1rem] bg-[linear-gradient(180deg,#0D3371_0%,#061D43_100%)] px-8 py-10 text-white shadow-[0_30px_75px_-45px_rgba(15,25,28,0.6)]">
+        <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#DCE8FA]">Ready to book?</p>
         <h2 className="mt-5 font-display text-4xl font-semibold leading-[1.08] text-white">Ready to book your treatment?</h2>
-        <p className="mt-6 max-w-3xl text-lg leading-8 text-[#f2fbfc]">Choose your treatment and book your appointment today.</p>
+        <p className="mt-6 max-w-3xl text-lg leading-8 text-[#EEF4FD]">Choose your treatment and book your appointment today.</p>
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-          <Link href="/booking" className="rounded-full bg-white px-6 py-3 text-center font-semibold text-[#162124]">
+          <Link href="/booking" className="rounded-full bg-white px-6 py-3 text-center font-semibold text-[#0A234D]">
             Book Now
           </Link>
-          <Link href="/contact" className="rounded-full border border-[#c4e5e7] bg-[#345157] px-6 py-3 text-center font-semibold text-white">
+          <Link href="/contact" className="rounded-full border border-[#AFC8ED] bg-[#174A91] px-6 py-3 text-center font-semibold text-white">
             Contact Us
           </Link>
         </div>
@@ -376,7 +378,7 @@ export default async function PriceListPage() {
       <div className="fixed inset-x-0 bottom-4 z-40 px-4 sm:hidden">
         <Link
           href="/booking"
-          className="block rounded-full bg-[color:var(--color-accent)] px-5 py-4 text-center font-semibold text-white shadow-[0_20px_45px_-25px_rgba(43,163,172,0.85)]"
+          className="block rounded-full bg-[color:var(--color-accent)] px-5 py-4 text-center font-semibold text-white shadow-[0_20px_45px_-25px_rgba(13,51,113,0.85)]"
         >
           Book Now
         </Link>

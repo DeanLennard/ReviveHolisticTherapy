@@ -70,7 +70,7 @@ export function HeroCarousel({
           <div className="mt-10 flex flex-col gap-3 sm:flex-row">
             <Link
               href={heroPrimaryLink}
-              className="rounded-full bg-[color:var(--color-accent)] px-6 py-3 text-center font-semibold text-white shadow-[0_24px_45px_-28px_rgba(43,163,172,0.75)] transition hover:-translate-y-0.5 hover:bg-[color:var(--color-accent-strong)]"
+              className="rounded-full bg-[color:var(--color-accent)] px-6 py-3 text-center font-semibold text-white shadow-[0_24px_45px_-28px_rgba(13,51,113,0.75)] transition hover:-translate-y-0.5 hover:bg-[color:var(--color-accent-strong)]"
             >
               {heroPrimaryText}
             </Link>

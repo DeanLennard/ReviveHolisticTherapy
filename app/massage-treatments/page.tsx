@@ -202,19 +202,19 @@ export default function MassageTreatmentsPage() {
         </div>
       </section>
 
-      <section className="mt-24 rounded-[2.1rem] bg-[linear-gradient(180deg,#2b4348_0%,#1e3135_100%)] px-8 py-10 text-white shadow-[0_30px_75px_-45px_rgba(15,25,28,0.6)]">
-        <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#e3f4f5]">Book your massage treatment</p>
+      <section className="mt-24 rounded-[2.1rem] bg-[linear-gradient(180deg,#0D3371_0%,#061D43_100%)] px-8 py-10 text-white shadow-[0_30px_75px_-45px_rgba(15,25,28,0.6)]">
+        <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#DCE8FA]">Book your massage treatment</p>
         <h2 className="mt-5 font-display text-4xl font-semibold leading-[1.08] text-white">
           Find the right massage treatment for you
         </h2>
-        <p className="mt-6 max-w-3xl text-lg leading-8 text-[#f2fbfc]">
+        <p className="mt-6 max-w-3xl text-lg leading-8 text-[#EEF4FD]">
           Whether you know exactly which treatment you want or need help choosing the most suitable option, we are here to help. Explore our massage treatments or book your appointment online today.
         </p>
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-          <Link href="/booking" className="rounded-full bg-white px-6 py-3 text-center font-semibold text-[#162124]">
+          <Link href="/booking" className="rounded-full bg-white px-6 py-3 text-center font-semibold text-[#0A234D]">
             Book Now
           </Link>
-          <Link href="/contact" className="rounded-full border border-[#c4e5e7] bg-[#345157] px-6 py-3 text-center font-semibold text-white">
+          <Link href="/contact" className="rounded-full border border-[#AFC8ED] bg-[#174A91] px-6 py-3 text-center font-semibold text-white">
             Contact Us
           </Link>
         </div>

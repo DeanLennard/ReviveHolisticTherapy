@@ -80,8 +80,8 @@ export default function ReflexologyPage() {
 
       <PageHero
         eyebrow="Reflexology"
-        title="Reflexology in Cannock for Relaxation and Wellbeing"
-        description="Reflexology is a deeply relaxing treatment that focuses on applying pressure to specific points on the feet to support overall wellbeing. At Revive Holistic Therapies in Cannock, reflexology is designed to help you unwind, reduce stress and restore a sense of balance in both body and mind. This calming treatment is ideal if you are looking for a gentle yet effective way to relax and reset."
+        title="Foot Reflexology in Cannock for Relaxation and Wellbeing"
+        description="Our traditional foot reflexology treatment focuses on applying gentle pressure to specific points on the feet. It is designed to help you unwind, reduce stress and restore a sense of balance in both body and mind."
       />
 
       <section className="mt-10 flex flex-wrap gap-3">
@@ -105,6 +105,9 @@ export default function ReflexologyPage() {
           </p>
           <p className="mt-5 text-lg leading-8 text-[color:var(--color-text-muted)]">
             While reflexology is often associated with holistic therapy, many people simply enjoy it as a deeply relaxing and calming experience that helps them switch off from daily stress.
+          </p>
+          <p className="mt-5 text-lg leading-8 text-[color:var(--color-text-muted)]">
+            Looking for a face and head-focused experience instead? Explore our <Link href="/facials/facial-reflexology" className="font-semibold text-[color:var(--color-accent)] underline">facial reflexology</Link> treatment.
           </p>
           <Link href="/booking" className="mt-8 inline-flex rounded-full bg-[color:var(--color-accent)] px-5 py-3 font-semibold text-white">
             Book Now
@@ -227,17 +230,17 @@ export default function ReflexologyPage() {
         </div>
       </section>
 
-      <section className="mt-24 rounded-[2.1rem] bg-[linear-gradient(180deg,#2b4348_0%,#1e3135_100%)] px-8 py-10 text-white shadow-[0_30px_75px_-45px_rgba(15,25,28,0.6)]">
-        <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#e3f4f5]">Book your reflexology session</p>
+      <section className="mt-24 rounded-[2.1rem] bg-[linear-gradient(180deg,#0D3371_0%,#061D43_100%)] px-8 py-10 text-white shadow-[0_30px_75px_-45px_rgba(15,25,28,0.6)]">
+        <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#DCE8FA]">Book your reflexology session</p>
         <h2 className="mt-5 font-display text-4xl font-semibold leading-[1.08] text-white">Take time to relax and rebalance</h2>
-        <p className="mt-6 max-w-3xl text-lg leading-8 text-[#f2fbfc]">
+        <p className="mt-6 max-w-3xl text-lg leading-8 text-[#EEF4FD]">
           If you are ready to switch off, reduce stress and enjoy a deeply relaxing treatment, book your reflexology session in Cannock today.
         </p>
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-          <Link href="/booking" className="rounded-full bg-white px-6 py-3 text-center font-semibold text-[#162124]">
+          <Link href="/booking" className="rounded-full bg-white px-6 py-3 text-center font-semibold text-[#0A234D]">
             Book Now
           </Link>
-          <Link href="/contact" className="rounded-full border border-[#c4e5e7] bg-[#345157] px-6 py-3 text-center font-semibold text-white">
+          <Link href="/contact" className="rounded-full border border-[#AFC8ED] bg-[#174A91] px-6 py-3 text-center font-semibold text-white">
             Contact Us
           </Link>
         </div>
@@ -262,7 +265,7 @@ export default function ReflexologyPage() {
       <div className="fixed inset-x-0 bottom-4 z-40 px-4 sm:hidden">
         <Link
           href="/booking"
-          className="block rounded-full bg-[color:var(--color-accent)] px-5 py-4 text-center font-semibold text-white shadow-[0_20px_45px_-25px_rgba(43,163,172,0.85)]"
+          className="block rounded-full bg-[color:var(--color-accent)] px-5 py-4 text-center font-semibold text-white shadow-[0_20px_45px_-25px_rgba(13,51,113,0.85)]"
         >
           Book Reflexology
         </Link>

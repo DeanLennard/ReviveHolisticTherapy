@@ -11,6 +11,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/gift-vouchers",
     "/memberships",
     "/offers",
+    "/reflexology",
+    "/facials",
+    "/facials/facial-reflexology",
+    "/holistic-therapies",
+    "/holistic-therapies/auriculotherapy",
+    "/holistic-therapies/acupuncture",
     "/blog",
     "/booking",
     "/contact",
@@ -28,12 +34,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const staticEntries = staticRoutes.map((path) => ({
     url: `${site.domain}${path}`,
-    lastModified: "2026-04-12",
+    lastModified: "2026-10-10",
   }));
 
   const serviceEntries = (await getServicesFromDb()).map((service) => ({
     url: `${site.domain}/treatments/${service.slug}`,
-    lastModified: "2026-04-12",
+    lastModified: "2026-10-10",
   }));
 
   return [...staticEntries, ...serviceEntries];

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 import { CookieSettingsButton } from "@/components/cookie-settings-button";
@@ -11,7 +12,7 @@ export async function SiteFooter() {
   const whatsappEnabled = settings?.contactOptions?.whatsappEnabled ?? true;
 
   return (
-    <footer className="mt-28 border-t border-[color:var(--color-hairline)] bg-[linear-gradient(180deg,#203035_0%,#18262a_100%)] text-white">
+    <footer className="mt-28 border-t border-[color:var(--color-hairline)] bg-[linear-gradient(180deg,#0c3371_0%,#071d42_100%)] text-white">
       {footerCta?.title ? (
         <div className="border-b border-white/10">
           <div className="mx-auto flex max-w-7xl flex-col gap-5 px-4 py-10 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
@@ -28,7 +29,13 @@ export async function SiteFooter() {
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-20 sm:px-6 lg:grid-cols-[1.2fr_0.8fr_0.8fr] lg:px-8">
         <div className="space-y-6">
           <div>
-            <p className="font-display text-3xl font-semibold">{site.name}</p>
+            <Image
+              src="/logo.png"
+              alt="Revive Holistic Therapies"
+              width={144}
+              height={144}
+              className="rounded-2xl bg-white p-1"
+            />
             <p className="mt-4 max-w-xl text-sm leading-7 text-white/70">
               Professional massage therapy and holistic treatments for clients in Cannock, Hednesford, and surrounding Staffordshire areas.
             </p>

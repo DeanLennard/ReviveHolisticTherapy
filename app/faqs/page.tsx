@@ -259,29 +259,29 @@ export default function FaqsPage() {
         ))}
       </section>
 
-      <section className="mt-24 rounded-[2.1rem] bg-[linear-gradient(180deg,#2b4348_0%,#1e3135_100%)] px-8 py-10 text-white shadow-[0_30px_75px_-45px_rgba(15,25,28,0.6)]">
-        <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#e3f4f5]">
+      <section className="mt-24 rounded-[2.1rem] bg-[linear-gradient(180deg,#0D3371_0%,#061D43_100%)] px-8 py-10 text-white shadow-[0_30px_75px_-45px_rgba(15,25,28,0.6)]">
+        <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#DCE8FA]">
           Still unsure which treatment is right for you?
         </p>
         <h2 className="mt-5 font-display text-4xl font-semibold leading-[1.08] text-white">
           Still unsure which treatment is right for you?
         </h2>
-        <p className="mt-6 max-w-3xl text-lg leading-8 text-[#f2fbfc]">
+        <p className="mt-6 max-w-3xl text-lg leading-8 text-[#EEF4FD]">
           We&apos;re happy to help, whether you&apos;re looking to relax, relieve tension or improve your wellbeing.
         </p>
-        <p className="mt-4 max-w-3xl text-lg leading-8 text-[#f2fbfc]">
+        <p className="mt-4 max-w-3xl text-lg leading-8 text-[#EEF4FD]">
           Contact us for advice or book your appointment today.
         </p>
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
           <Link
             href="/contact"
-            className="rounded-full bg-white px-6 py-3 text-center font-semibold text-[#162124]"
+            className="rounded-full bg-white px-6 py-3 text-center font-semibold text-[#0A234D]"
           >
             Contact Us
           </Link>
           <Link
             href="/booking"
-            className="rounded-full border border-[#c4e5e7] bg-[#345157] px-6 py-3 text-center font-semibold text-white"
+            className="rounded-full border border-[#AFC8ED] bg-[#174A91] px-6 py-3 text-center font-semibold text-white"
           >
             Book Your Appointment
           </Link>

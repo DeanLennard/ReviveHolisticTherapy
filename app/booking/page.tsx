@@ -51,7 +51,7 @@ export default async function BookingPage() {
         />
 
         <aside className="space-y-6">
-          <div className="rounded-[2rem] bg-[linear-gradient(160deg,#1f2a2e,#2a4b4f)] p-8 text-white">
+          <div className="rounded-[2rem] bg-[linear-gradient(160deg,#0D3371,#061D43)] p-8 text-white">
             <p className="text-sm font-semibold uppercase tracking-[0.24em] text-white/60">Booking rules</p>
             <ul className="prose-list mt-5 text-white/78">
               <li>Minimum notice: {bookingSettings.minimumNoticeHours} hours</li>

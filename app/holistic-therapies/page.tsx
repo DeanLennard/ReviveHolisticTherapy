@@ -27,6 +27,18 @@ const therapies = [
     href: "/holistic-therapies/hopi-ear-candles",
   },
   {
+    title: "Auriculotherapy",
+    description:
+      "A complementary wellbeing treatment using gentle ear pressure points and optional ear seeds as part of a tailored appointment.",
+    href: "/holistic-therapies/auriculotherapy",
+  },
+  {
+    title: "Acupuncture",
+    description:
+      "Acupuncture is coming soon to Revive. Register your interest while treatment details and availability are finalised.",
+    href: "/holistic-therapies/acupuncture",
+  },
+  {
     title: "Holistic Packages",
     description:
       "Our packages combine multiple treatments to provide a more complete wellbeing experience. These are ideal if you are looking to relax more deeply and enjoy a longer, more immersive session.",
@@ -66,7 +78,7 @@ export default function HolisticTherapiesPage() {
       name: "Holistic Therapies",
       description:
         "Holistic therapies in Cannock including crystal therapy, Hopi ear candles and wellbeing treatments that support relaxation and balance.",
-      url: "https://reviveholistictherapies.com/holistic-therapies",
+      url: "https://new.reviveholistictherapies.com/holistic-therapies",
       about: therapies.map((item) => ({
         "@type": "Service",
         name: item.title,
@@ -149,7 +161,7 @@ export default function HolisticTherapiesPage() {
                 href={item.href}
                 className="mt-6 inline-flex rounded-full bg-[color:var(--color-accent)] px-5 py-3 font-semibold text-white"
               >
-                {item.title === "Holistic Packages" ? "View Packages" : item.title}
+                {item.title === "Holistic Packages" ? "View Packages" : item.title === "Acupuncture" ? "Coming soon" : item.title}
               </Link>
             </article>
           ))}
@@ -183,17 +195,17 @@ export default function HolisticTherapiesPage() {
         </div>
       </section>
 
-      <section className="mt-24 rounded-[2.1rem] bg-[linear-gradient(180deg,#2b4348_0%,#1e3135_100%)] px-8 py-10 text-white shadow-[0_30px_75px_-45px_rgba(15,25,28,0.6)]">
-        <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#e3f4f5]">Holistic therapies in Cannock</p>
+      <section className="mt-24 rounded-[2.1rem] bg-[linear-gradient(180deg,#0D3371_0%,#061D43_100%)] px-8 py-10 text-white shadow-[0_30px_75px_-45px_rgba(15,25,28,0.6)]">
+        <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#DCE8FA]">Holistic therapies in Cannock</p>
         <h2 className="mt-5 font-display text-4xl font-semibold leading-[1.08] text-white">Relax, reset and rebalance</h2>
-        <p className="mt-6 max-w-3xl text-lg leading-8 text-[#f2fbfc]">
+        <p className="mt-6 max-w-3xl text-lg leading-8 text-[#EEF4FD]">
           If you are looking for a calming and supportive treatment, explore our holistic therapies and book your appointment today.
         </p>
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-          <Link href="/booking" className="rounded-full bg-white px-6 py-3 text-center font-semibold text-[#162124]">
+          <Link href="/booking" className="rounded-full bg-white px-6 py-3 text-center font-semibold text-[#0A234D]">
             Book Now
           </Link>
-          <Link href="/contact" className="rounded-full border border-[#c4e5e7] bg-[#345157] px-6 py-3 text-center font-semibold text-white">
+          <Link href="/contact" className="rounded-full border border-[#AFC8ED] bg-[#174A91] px-6 py-3 text-center font-semibold text-white">
             Contact Us
           </Link>
         </div>
@@ -209,6 +221,8 @@ export default function HolisticTherapiesPage() {
           {[
             { href: "/holistic-therapies/crystal-therapy", label: "Crystal Therapy" },
             { href: "/holistic-therapies/hopi-ear-candles", label: "Hopi Ear Candles" },
+            { href: "/holistic-therapies/auriculotherapy", label: "Auriculotherapy" },
+            { href: "/holistic-therapies/acupuncture", label: "Acupuncture — coming soon" },
             { href: "/offers", label: "Packages" },
             { href: "/reflexology", label: "Reflexology" },
             { href: "/massage-treatments", label: "Massage Treatments" },
@@ -248,7 +262,7 @@ export default function HolisticTherapiesPage() {
       <div className="fixed inset-x-0 bottom-4 z-40 px-4 sm:hidden">
         <Link
           href="/booking"
-          className="block rounded-full bg-[color:var(--color-accent)] px-5 py-4 text-center font-semibold text-white shadow-[0_20px_45px_-25px_rgba(43,163,172,0.85)]"
+          className="block rounded-full bg-[color:var(--color-accent)] px-5 py-4 text-center font-semibold text-white shadow-[0_20px_45px_-25px_rgba(13,51,113,0.85)]"
         >
           Book a Treatment
         </Link>

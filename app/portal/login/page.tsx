@@ -30,7 +30,7 @@ export default async function PortalLoginPage() {
       </section>
 
       <section className="mt-8">
-        <div className="rounded-[2rem] bg-[linear-gradient(160deg,#1f2a2e,#2ba3ac)] p-8 text-white">
+        <div className="rounded-[2rem] bg-[linear-gradient(160deg,#0D3371,#061D43)] p-8 text-white">
           <p className="text-sm font-semibold uppercase tracking-[0.24em] text-white/60">Portal features</p>
           <ul className="prose-list mt-5 text-white/78">
             <li>View upcoming and past bookings</li>

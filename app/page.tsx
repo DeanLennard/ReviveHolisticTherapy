@@ -272,25 +272,25 @@ export default async function HomePage() {
           </div>
         </div>
 
-        <div className="rounded-[2.1rem] bg-[linear-gradient(180deg,#2b4348_0%,#1e3135_100%)] px-8 py-10 text-white shadow-[0_30px_75px_-45px_rgba(15,25,28,0.6)]">
-          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#e3f4f5]">Book your treatment</p>
+        <div className="rounded-[2.1rem] bg-[linear-gradient(180deg,#0D3371_0%,#061D43_100%)] px-8 py-10 text-white shadow-[0_30px_75px_-45px_rgba(15,25,28,0.6)]">
+          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#DCE8FA]">Book your treatment</p>
           <h2 className="mt-5 font-display text-4xl font-semibold leading-[1.08] text-white">
             {homepageCta?.title || "Ready to book your treatment?"}
           </h2>
-          <p className="mt-6 text-lg leading-8 text-[#f2fbfc]">
+          <p className="mt-6 text-lg leading-8 text-[#EEF4FD]">
             {homepageCta?.body ||
               "Whether you are looking to unwind, reduce muscular tension or invest in your wellbeing, we are here to help. Choose from a range of massage, holistic and facial treatments and book your appointment online at a time that suits you."}
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <Link
               href={homepageCta?.primaryLink || "/booking"}
-              className="rounded-full bg-white px-6 py-3 text-center font-semibold text-[#162124] shadow-[0_14px_30px_-20px_rgba(0,0,0,0.45)]"
+              className="rounded-full bg-white px-6 py-3 text-center font-semibold text-[#0A234D] shadow-[0_14px_30px_-20px_rgba(0,0,0,0.45)]"
             >
               {homepageCta?.primaryText || "Book Your Appointment"}
             </Link>
             <Link
               href="/contact"
-              className="rounded-full border border-[#c4e5e7] bg-[#345157] px-6 py-3 text-center font-semibold text-white"
+              className="rounded-full border border-[#AFC8ED] bg-[#174A91] px-6 py-3 text-center font-semibold text-white"
             >
               Contact Us
             </Link>

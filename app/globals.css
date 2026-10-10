@@ -1,20 +1,20 @@
 @import "tailwindcss";
 
 :root {
-  --color-background: #f4f7f7;
-  --color-surface: #edf5f5;
+  --color-background: #f5f7fb;
+  --color-surface: #eef3fa;
   --color-card: #ffffff;
-  --color-accent: #2ba3ac;
-  --color-accent-strong: #1f8b93;
-  --color-accent-soft: #d9eef0;
-  --color-heading: #1f2a2e;
-  --color-text: #314247;
-  --color-text-muted: #4a5a5e;
-  --color-border: #d7e1e2;
-  --color-hairline: rgba(31, 42, 46, 0.08);
-  --shadow-soft: 0 26px 60px -42px rgba(22, 37, 40, 0.26);
-  --shadow-panel: 0 34px 80px -50px rgba(18, 30, 33, 0.22);
-  --focus-ring: #0f6e75;
+  --color-accent: #0c3371;
+  --color-accent-strong: #082858;
+  --color-accent-soft: #d8e4f5;
+  --color-heading: #11243e;
+  --color-text: #283a52;
+  --color-text-muted: #4a5f79;
+  --color-border: #d4deeb;
+  --color-hairline: rgba(12, 51, 113, 0.1);
+  --shadow-soft: 0 26px 60px -42px rgba(12, 51, 113, 0.28);
+  --shadow-panel: 0 34px 80px -50px rgba(12, 51, 113, 0.24);
+  --focus-ring: #0c3371;
   --focus-ring-offset: #ffffff;
 }
 
@@ -35,8 +35,8 @@ html {
 body {
   margin: 0;
   background:
-    radial-gradient(circle at top left, rgba(43, 163, 172, 0.05), transparent 22%),
-    linear-gradient(180deg, #fbfdfd 0%, #f4f7f7 100%);
+    radial-gradient(circle at top left, rgba(12, 51, 113, 0.07), transparent 22%),
+    linear-gradient(180deg, #fdfdff 0%, #f5f7fb 100%);
   color: var(--color-text);
   font-family: var(--font-body), sans-serif;
 }
@@ -149,8 +149,8 @@ button[class*="bg-[color:var(--color-accent-strong)]"] {
   color: #ffffff !important;
 }
 
-a[class*="bg-[#345157]"],
-button[class*="bg-[#345157]"] {
+a[class*="bg-[#174A91]"],
+button[class*="bg-[#174A91]"] {
   color: #ffffff !important;
 }
 
