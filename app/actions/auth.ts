@@ -6,7 +6,7 @@ import { redirect } from "next/navigation";
 
 import { getCollections } from "@/lib/collections";
 import { writeAuditLog } from "@/lib/audit-log";
-import { consumeMagicLinkToken, signOut } from "@/lib/auth";
+import { signOut } from "@/lib/auth";
 import { getSiteSettings } from "@/lib/content";
 import { sendMagicLinkEmail } from "@/lib/mailer";
 import { magicLinkRequestSchema } from "@/lib/validators";
@@ -36,7 +36,7 @@ export async function loginAction(_state: AuthActionState, formData: FormData): 
     const tokenHash = crypto.createHash("sha256").update(rawToken).digest("hex");
     const expiresAt = new Date(Date.now() + 1000 * 60 * 30);
     const appUrl = process.env.APP_URL || "http://localhost:3000";
-    const magicUrl = `${appUrl}/portal/magic-link?token=${rawToken}`;
+    const magicUrl = `${appUrl}/api/auth/magic-link?token=${rawToken}`;
 
     await passwordResetTokens.insertOne({
       userId: user._id,
@@ -80,20 +80,4 @@ export async function resetPasswordAction(): Promise<AuthActionState> {
   return {
     message: "Password sign-in is no longer used. Request a magic link instead.",
   };
-}
-
-export async function consumeMagicLinkAction(token: string) {
-  const user = await consumeMagicLinkToken(token);
-
-  if (!user) {
-    return null;
-  }
-
-  await writeAuditLog({
-    action: "auth.magic_link_consumed",
-    actorUserId: user._id,
-    actorEmail: user.email,
-  });
-
-  return user;
 }

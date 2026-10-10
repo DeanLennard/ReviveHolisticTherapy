@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
-import { consumeMagicLinkAction } from "@/app/actions/auth";
 import { PageHero } from "@/components/page-hero";
 import { buildMetadata } from "@/lib/seo";
 
@@ -20,11 +19,7 @@ export default async function PortalMagicLinkPage({
   const token = Array.isArray(params.token) ? params.token[0] ?? "" : params.token ?? "";
 
   if (token) {
-    const user = await consumeMagicLinkAction(token);
-
-    if (user) {
-      redirect(user.role === "customer" ? "/portal/account" : "/admin");
-    }
+    redirect(`/api/auth/magic-link?token=${encodeURIComponent(token)}`);
   }
 
   return (
