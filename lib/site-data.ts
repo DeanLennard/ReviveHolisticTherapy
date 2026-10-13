@@ -1,3 +1,5 @@
+import { lomiLomiMassageIsAvailable } from "@/lib/service-availability";
+
 export type HeroSlide = {
   id: string;
   title: string;
@@ -154,7 +156,9 @@ export const site = {
         { href: "/massage-treatments/aqua-massage", label: "Aqua Massage" },
         { href: "/massage-treatments/hot-stone-massage", label: "Hot Stone Massage" },
         { href: "/massage-treatments/warm-bamboo-massage", label: "Warm Bamboo Massage" },
-        { href: "/massage-treatments/lomi-lomi-massage", label: "Lomi Lomi Massage" },
+        ...(lomiLomiMassageIsAvailable
+          ? [{ href: "/massage-treatments/lomi-lomi-massage", label: "Lomi Lomi Massage" }]
+          : []),
       ],
     },
     { href: "/reflexology", label: "Reflexology" },

@@ -4,6 +4,7 @@ import { ServiceCard } from "@/components/service-card";
 import { getServicesFromDb } from "@/lib/content";
 import { mapService } from "@/lib/mappers";
 import { buildMetadata } from "@/lib/seo";
+import { isServiceAvailable } from "@/lib/service-availability";
 
 export const metadata = buildMetadata({
   title: "Treatments | Massage and Holistic Therapy in Cannock",
@@ -13,7 +14,7 @@ export const metadata = buildMetadata({
 });
 
 export default async function TreatmentsPage() {
-  const services = (await getServicesFromDb()).map(mapService);
+  const services = (await getServicesFromDb()).filter((service) => isServiceAvailable(service.slug)).map(mapService);
 
   return (
     <div className="shell py-8 sm:py-10">

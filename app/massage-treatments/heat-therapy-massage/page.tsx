@@ -5,6 +5,7 @@ import { PageHero } from "@/components/page-hero";
 import { SchemaScript } from "@/components/schema-script";
 import { SectionHeading } from "@/components/section-heading";
 import { buildMetadata } from "@/lib/seo";
+import { isServiceAvailable } from "@/lib/service-availability";
 
 export const metadata = buildMetadata({
   title: "Heat Therapy Massage Cannock | Hot Stone, Bamboo & Aqua Massage | Revive Holistic Therapies",
@@ -60,7 +61,7 @@ const treatmentOptions = [
     extra: "This treatment encourages both physical relaxation and emotional release.",
     href: "/massage-treatments/lomi-lomi-massage",
   },
-];
+].filter((option) => option.href !== "/massage-treatments/lomi-lomi-massage" || isServiceAvailable("lomi-lomi-massage"));
 
 const faqItems = [
   {

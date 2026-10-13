@@ -1,10 +1,12 @@
 import Link from "next/link";
+import { notFound } from "next/navigation";
 
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { PageHero } from "@/components/page-hero";
 import { SchemaScript } from "@/components/schema-script";
 import { SectionHeading } from "@/components/section-heading";
 import { buildMetadata } from "@/lib/seo";
+import { lomiLomiMassageIsAvailable } from "@/lib/service-availability";
 
 export const metadata = buildMetadata({
   title: "Lomi Lomi Massage Cannock | Hawaiian Flowing Massage Therapy",
@@ -46,6 +48,10 @@ const faqItems = [
 ];
 
 export default function LomiLomiMassagePage() {
+  if (!lomiLomiMassageIsAvailable) {
+    notFound();
+  }
+
   const schema = [
     {
       "@context": "https://schema.org",

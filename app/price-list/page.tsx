@@ -8,6 +8,7 @@ import { getServicesFromDb } from "@/lib/content";
 import { mapService } from "@/lib/mappers";
 import { buildMetadata } from "@/lib/seo";
 import { site } from "@/lib/site-data";
+import { isServiceAvailable } from "@/lib/service-availability";
 
 export const metadata = buildMetadata({
   title: "Massage & Treatment Prices Cannock | Revive Holistic Therapies",
@@ -34,7 +35,7 @@ const massageRows: PriceRow[] = [
   { name: "Hot Stone Massage", duration: "60 min / 90 min / 120 min", price: "£60 / £75 / £95", href: "/massage-treatments/hot-stone-massage", slug: "hot-stone-massage" },
   { name: "Warm Bamboo Massage", duration: "60 min / 90 min / 120 min", price: "£60 / £75 / £95", href: "/massage-treatments/warm-bamboo-massage", slug: "warm-bamboo-massage" },
   { name: "Lomi Lomi Massage", duration: "60 min / 90 min / 120 min", price: "£60 / £75 / £95", href: "/massage-treatments/lomi-lomi-massage", slug: "lomi-lomi-massage" },
-];
+].filter((row) => !row.slug || isServiceAvailable(row.slug));
 
 const mensRows: PriceRow[] = [
   { name: "De-Stress Body Massage", duration: "60 min / 90 min / 120 min", price: "£60 / £75 / £95", href: "/mens-wellbeing/de-stress-body-massage", slug: "de-stress-body-massage" },

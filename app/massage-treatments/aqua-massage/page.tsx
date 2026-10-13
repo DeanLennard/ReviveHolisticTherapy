@@ -5,6 +5,7 @@ import { PageHero } from "@/components/page-hero";
 import { SchemaScript } from "@/components/schema-script";
 import { SectionHeading } from "@/components/section-heading";
 import { buildMetadata } from "@/lib/seo";
+import { isServiceAvailable } from "@/lib/service-availability";
 
 export const metadata = buildMetadata({
   title: "Aqua Massage Cannock | Relaxing Water-Based Massage Therapy | Revive Holistic Therapies",
@@ -228,7 +229,9 @@ export default function AquaMassagePage() {
               { href: "/price-list", label: "Price List" },
               { href: "/contact", label: "Contact" },
               { href: "/booking", label: "Booking" },
-            ].map((item) => (
+            ]
+              .filter((item) => item.href !== "/massage-treatments/lomi-lomi-massage" || isServiceAvailable("lomi-lomi-massage"))
+              .map((item) => (
               <Link
                 key={item.href}
                 href={item.href}

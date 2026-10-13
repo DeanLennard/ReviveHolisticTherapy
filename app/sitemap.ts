@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 
 import { getServicesFromDb } from "@/lib/content";
 import { localAreaPages, site } from "@/lib/site-data";
+import { isServiceAvailable, lomiLomiMassageIsAvailable } from "@/lib/service-availability";
 
 const publicRoutes = [
   { path: "", changeFrequency: "weekly", priority: 1 },
@@ -29,7 +30,9 @@ const publicRoutes = [
   { path: "/massage-treatments/aqua-massage", changeFrequency: "monthly", priority: 0.8 },
   { path: "/massage-treatments/hot-stone-massage", changeFrequency: "monthly", priority: 0.8 },
   { path: "/massage-treatments/warm-bamboo-massage", changeFrequency: "monthly", priority: 0.8 },
-  { path: "/massage-treatments/lomi-lomi-massage", changeFrequency: "monthly", priority: 0.8 },
+  ...(lomiLomiMassageIsAvailable
+    ? [{ path: "/massage-treatments/lomi-lomi-massage", changeFrequency: "monthly" as const, priority: 0.8 }]
+    : []),
   { path: "/womens-wellbeing/pregnancy-massage", changeFrequency: "monthly", priority: 0.8 },
   { path: "/womens-wellbeing/peri-menopause-massage", changeFrequency: "monthly", priority: 0.8 },
   { path: "/womens-wellbeing/oncology-massage", changeFrequency: "monthly", priority: 0.8 },
@@ -57,7 +60,7 @@ const categoryTreatmentSlugs = new Set([
   "aqua-massage",
   "hot-stone-massage",
   "warm-bamboo-massage",
-  "lomi-lomi-massage",
+  ...(lomiLomiMassageIsAvailable ? ["lomi-lomi-massage"] : []),
   "pregnancy-massage",
   "peri-menopause-massage",
   "oncology-massage",
@@ -90,7 +93,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }));
 
   const serviceEntries = (await getServicesFromDb())
-    .filter((service) => !categoryTreatmentSlugs.has(service.slug))
+    .filter((service) => isServiceAvailable(service.slug) && !categoryTreatmentSlugs.has(service.slug))
     .map((service) => ({
       url: `${site.domain}/treatments/${service.slug}`,
       lastModified: service.updatedAt,

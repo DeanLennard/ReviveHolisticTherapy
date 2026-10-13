@@ -4,6 +4,7 @@ import { Breadcrumbs } from "@/components/breadcrumbs";
 import { PageHero } from "@/components/page-hero";
 import { SectionHeading } from "@/components/section-heading";
 import { buildMetadata } from "@/lib/seo";
+import { isServiceAvailable } from "@/lib/service-availability";
 
 export const metadata = buildMetadata({
   title: "Massage Treatments Cannock | Relaxing & Deep Tissue Massage | Revive Holistic Therapies",
@@ -70,7 +71,7 @@ const heatTherapyOptions = [
       "Inspired by traditional Hawaiian massage, Lomi Lomi uses flowing movements across the body to create a rhythmic, deeply nurturing treatment experience that encourages relaxation and emotional release.",
     href: "/massage-treatments/lomi-lomi-massage",
   },
-];
+].filter((option) => option.href !== "/massage-treatments/lomi-lomi-massage" || isServiceAvailable("lomi-lomi-massage"));
 
 const benefits = [
   "Reduced muscular tension and tightness",
@@ -233,7 +234,9 @@ export default function MassageTreatmentsPage() {
           { href: "/massage-treatments/lomi-lomi-massage", label: "Lomi Lomi Massage" },
           { href: "/price-list", label: "Price List" },
           { href: "/contact", label: "Contact" },
-        ].map((item) => (
+        ]
+          .filter((item) => item.href !== "/massage-treatments/lomi-lomi-massage" || isServiceAvailable("lomi-lomi-massage"))
+          .map((item) => (
           <Link
             key={item.href}
             href={item.href}

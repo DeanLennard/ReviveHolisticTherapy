@@ -4,6 +4,7 @@ import { ObjectId } from "mongodb";
 
 import { ensureDatabaseSeeded } from "@/lib/bootstrap";
 import { getCollections } from "@/lib/collections";
+import { isServiceAvailable } from "@/lib/service-availability";
 
 export async function getSiteSettings() {
   await ensureDatabaseSeeded();
@@ -20,10 +21,16 @@ export async function getHeroSlidesFromDb() {
 export async function getServicesFromDb() {
   await ensureDatabaseSeeded();
   const { services } = await getCollections();
-  return services.find({ isActive: true }).sort({ displayOrder: 1 }).toArray();
+  return (await services.find({ isActive: true }).sort({ displayOrder: 1 }).toArray()).filter((service) =>
+    isServiceAvailable(service.slug),
+  );
 }
 
 export async function getServiceBySlugFromDb(slug: string) {
+  if (!isServiceAvailable(slug)) {
+    return null;
+  }
+
   await ensureDatabaseSeeded();
   const { services } = await getCollections();
   return services.findOne({ slug, isActive: true });

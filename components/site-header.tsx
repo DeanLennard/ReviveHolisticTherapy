@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useState } from "react";
 
 import { site } from "@/lib/site-data";
+import { lomiLomiMassageIsAvailable } from "@/lib/service-availability";
 
 type MegaLink = {
   href: string;
@@ -48,7 +49,9 @@ const megaNav: MegaItem[] = [
           { href: "/massage-treatments/hot-stone-massage", label: "Hot Stone Massage" },
           { href: "/massage-treatments/warm-bamboo-massage", label: "Warm Bamboo Massage" },
           { href: "/massage-treatments/aqua-massage", label: "Aqua Massage" },
-          { href: "/massage-treatments/lomi-lomi-massage", label: "Lomi Lomi Massage" },
+          ...(lomiLomiMassageIsAvailable
+            ? [{ href: "/massage-treatments/lomi-lomi-massage", label: "Lomi Lomi Massage" }]
+            : []),
         ],
       },
       {

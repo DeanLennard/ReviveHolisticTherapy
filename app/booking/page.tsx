@@ -3,6 +3,7 @@ import { PageHero } from "@/components/page-hero";
 import { getServicesFromDb, getSiteSettings } from "@/lib/content";
 import { mapService } from "@/lib/mappers";
 import { buildMetadata } from "@/lib/seo";
+import { isServiceAvailable } from "@/lib/service-availability";
 
 export const metadata = buildMetadata({
   title: "Book Online | Revive Holistic Therapies Cannock",
@@ -13,7 +14,7 @@ export const metadata = buildMetadata({
 
 export default async function BookingPage() {
   const [serviceDocs, settings] = await Promise.all([getServicesFromDb(), getSiteSettings()]);
-  const services = serviceDocs.map(mapService);
+  const services = serviceDocs.filter((service) => isServiceAvailable(service.slug)).map(mapService);
   const paymentSettings = settings?.paymentSettings ?? {
     stripeEnabled: true,
     goCardlessEnabled: true,
